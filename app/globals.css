@@ -1,0 +1,111 @@
+@font-face {
+  font-family: Quicksand;
+  src: url("/Fonts/Quicksand.ttf");
+}
+
+@font-face {
+  font-family: Righteous;
+  src: url("/Fonts/Righteous.ttf");
+}
+
+@font-face {
+  font-family: Aharoni;
+  src: url("/Fonts/Aharoni.ttf");
+}
+
+@font-face {
+  font-family: ABeeZee;
+  src: url("/Fonts/ABeeZee.ttf");
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url("/Fonts/Roboto.ttf");
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* ::placeholder {
+  font-size: 0.9em;
+} */
+
+:root {
+  --top-left: #391c51;
+  --mid-left: #1D1A3A;
+  --center: #1C224F;
+  --top-right: #2B1E4D;
+  --bottom-right: #2D2743;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #11192A;
+  /* background: #160722; */
+}
+
+div.bg1 {
+  position: absolute;
+  background: var(--top-left);
+  width: 475px;
+  height: 498px;
+  border-radius: 50%;
+  top: -225px;
+  left: -225px;
+  z-index: -100000;
+  filter: blur(100px);
+}
+
+div.bg2 {
+  position: absolute;
+  /* background: #0b665e; */
+  background: var(--mid-left);
+  width: 475px;
+  height: 498px;
+  border-radius: 50%;
+  top: 225px;
+  left: -225px;
+  z-index: -100000;
+  filter: blur(100px);
+}
+
+div.bg3 {
+  position: absolute;
+  background: var(--center);
+  width: 388px;
+  height: 429px;
+  border-radius: 50%;
+  top: -153px;
+  left: 332px;
+  z-index: -100000;
+  filter: blur(100px);
+}
+
+div.bg4 {
+  position: absolute;
+  background: var(--top-right);
+  width: 688px;
+  height: 429px;
+  border-radius: 50%;
+  top: -153px;
+  right: -150px;
+  z-index: -100000;
+  filter: blur(100px);
+}
+
+div.bg5 {
+  position: absolute;
+  background: var(--bottom-right);
+  width: 688px;
+  height: 429px;
+  border-radius: 50%;
+  bottom: -300px;
+  right: 82px;
+  z-index: -100000;
+  filter: blur(100px);
+}
