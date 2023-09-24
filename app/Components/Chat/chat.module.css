@@ -8,18 +8,18 @@ div.chat-container {
 div.previous-chats {
   /* background: #fff; */
   height: 100%;
-  width: 280px;
+  width: 20.5vw;
   display: flex;
   flex-direction: column;
-  padding: 12px 20px;
+  padding: .9vw 1.45vw;
 }
 
 div.chat {
-  width: calc(100% - 280px);
+  width: calc(100% - 20.5vw);
   display: flex;
-  margin: 10px;
+  margin: .75vw;
   background: #b3b3b308;
-  border-radius: 50px;
+  border-radius: 3.75vw;
   border: 1px solid #3d3d3d;
   flex-direction: column;
   backdrop-filter: blur(71px);
@@ -30,7 +30,7 @@ h1.title {
   color: rgba(255, 255, 255, 0.2);
   text-align: center;
   font-family: Righteous;
-  font-size: 1.7em;
+  font-size: 2vw;
   position: absolute;
   top: 100px;
   left: 50%;
@@ -51,7 +51,8 @@ img.placeholder-img {
   opacity: 0.3;
   position: absolute;
   top: 20px;
-
+  width: 7.43vw;
+  height: auto !important;
 }
 
 div.msgs {
@@ -133,8 +134,8 @@ div.input button {
 
 p.note {
   position: absolute;
-  bottom: 24px;
-  font-size: 0.7em;
+  bottom: 1.8vw;
+  font-size: 0.8vw;
   font-family: Quicksand;
   color: #cbcbcb;
   width: 80%;
@@ -145,27 +146,27 @@ div.previous-chats div.links {
   display: flex;
   flex-direction: column;
   position: relative;
-  top: 5em;
+  top: 5.86vw;
   /* gap: 2px; */
 }
 
 div.previous-chats div.links a {
   text-decoration: none;
   color: #eee;
-  padding: 12px;
+  padding: .9vw;
   font-family: abeezee;
-  font-size: 0.84em;
+  font-size: .97vw;
 }
 
 div.previous-chats div.logo {
   display: flex;
   position: relative;
-  top: 15px;
+  top: 1.125vw;
 }
 
 div.previous-chats div.logo img {
-  width: auto;
-  height: 3.6em;
+  width: 6.3vw;
+  height: auto;
 }
 
 div.examples {
@@ -174,49 +175,51 @@ div.examples {
   transform: translateY(-50%);
   display: flex;
   flex-direction: row;
-  width: calc(60% - 60px);
-  gap: 40px;
+  width: calc(100% - 35.5vw);
+  gap: 3vw;
+  transition: 150ms;
 }
 
 div.example {
   background: #ffffff05;
   border: 1px solid #36384f;
-  border-radius: 15px;
+  border-radius: 1.1247vw;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 15px 15px;
+  gap: 1.17vw;
+  padding: 1.12vw;
   color: #bfbfbf;
   font-family: Quicksand;
   width: 100%;
+  transition: 150ms;
 }
 
 div.header {
   color: #eee;
   display: flex;
   flex-direction: row;
-  gap: 14px;
+  gap: 1vw;
   align-items: center;
-  font-size: 1.2em;
+  font-size: 1.4vw;
 }
 
 div.header .example-icon {
-  padding: 8px;
+  padding: .55vw;
   background: #4724e7;
-  border-radius: 7px;
+  border-radius: .5vw;
 }
 
 div.columns {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: .75vw;
 }
 
 div.columns p.col {
-  padding: 12px;
-  border-radius: 8px;
+  padding: .891vw;
+  border-radius: .586vw;
   background: #ffffff15;
-  font-size: 0.78em;
+  font-size: .935vw;
   cursor: pointer;
   transition: 200ms ease-in-out;
 }

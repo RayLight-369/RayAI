@@ -74,7 +74,7 @@ const Chat = ( { prompt, setPrompt, handleSubmit, messages } ) => {
           <div className={ styles[ "example" ] }>
             <div className={ styles[ "header" ] }>
               <FontAwesomeIcon className={ styles[ 'example-icon' ] } icon={ faTriangleExclamation } />
-              <span>Example</span>
+              <span>Limitations</span>
             </div>
             <div className={ styles[ "columns" ] }>
               <p className={ styles[ "col" ] }>{ `May Somatimes produce in-accurate Results.` }</p>
