@@ -30,12 +30,17 @@ h1.title {
   color: rgba(255, 255, 255, 0.2);
   text-align: center;
   font-family: Righteous;
-  font-size: 2.2em;
+  font-size: 1.7em;
   position: absolute;
   top: 100px;
   left: 50%;
   width: 90%;
   transform: translateX(-50%);
+}
+
+h1.title span.highlight {
+  color: white;
+  opacity: 0.4;
 }
 
 .link-icons {
