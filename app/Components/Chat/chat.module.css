@@ -20,7 +20,7 @@ div.chat {
   margin: .75vw;
   background: #b3b3b308;
   border-radius: 3.75vw;
-  border: 1px solid #3d3d3d;
+  border: .075vw solid #3d3d3d;
   flex-direction: column;
   backdrop-filter: blur(71px);
   align-items: center;
@@ -32,7 +32,7 @@ h1.title {
   font-family: Righteous;
   font-size: 2vw;
   position: absolute;
-  top: 100px;
+  top: 7.5vw;
   left: 50%;
   width: 90%;
   transform: translateX(-50%);
@@ -50,7 +50,7 @@ h1.title span.highlight {
 img.placeholder-img {
   opacity: 0.3;
   position: absolute;
-  top: 20px;
+  top: 1.5vw;
   width: 7.43vw;
   height: auto !important;
 }
@@ -58,12 +58,12 @@ img.placeholder-img {
 div.msgs {
   /* background: #000; */
   width: 100%;
-  height: calc(100% - 100px);
+  height: calc(100% - 7.5vw);
   overflow: auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 20px;
+  gap: 1.5vw;
+  padding: 1.5vw;
 }
 
 div.msgs div.ai,
@@ -71,7 +71,7 @@ div.msgs div.user {
   display: flex;
   flex-direction: row;
   align-items: top;
-  gap: 30px;
+  gap: 2.25vw;
   color: #fff;
   position: relative;
 }
@@ -87,7 +87,7 @@ img.ai-pic {
 div.input {
   display: flex;
   position: relative;
-  margin-bottom: 56px;
+  margin-bottom: 4.2vw;
   height: fit-content;
   width: 80%;
   align-items: center;
@@ -102,40 +102,40 @@ div.input button {
 
 div.input textarea {
   position: relative;
-  padding: 12px 75px 12px 18px;
-  min-height: 46px;
-  height: 46px;
+  padding: .9vw 5.625vw .9vw 1.35vw;
+  min-height: 3.45vw;
+  height: 3.45vw;
   width: 100%;
-  bottom: 5px;
+  bottom: .375vw;
   font-family: AbeeZee;
   line-height: 1.8;
-  max-height: 130px;
+  max-height: 9.75vw;
   box-sizing: border-box;
   resize: none;
   font-family: Abeezee;
-  border-radius: 7px;
-  font-size: 0.9em;
+  border-radius: .525vw;
+  font-size: 1.2vw;
   color: #cbcbcb;
   background: #364057;
   overflow: hidden;
 }
 
 div.input button {
-  height: 42px;
-  width: 42px;
+  height: 3.15vw;
+  width: 3.15vw;
   position: absolute;
-  right: 20px;
+  right: 1.5vw;
   background: transparent;
   cursor: pointer;
-  font-size: 1.3em;
+  font-size: 1.6vw;
   color: #dadada;
-  bottom: 5px;
+  bottom: .375vw;
 }
 
 p.note {
   position: absolute;
   bottom: 1.8vw;
-  font-size: 0.8vw;
+  font-size: 0.83vw;
   font-family: Quicksand;
   color: #cbcbcb;
   width: 80%;
