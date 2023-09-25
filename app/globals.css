@@ -39,37 +39,51 @@
   --center: #1C224F;
   --top-right: #2B1E4D;
   --bottom-right: #2D2743;
+  --top-left-dark: #391c51;
+  --mid-left-dark: #1D1A3A;
+  --center-dark: #1C224F;
+  --top-right-dark: #2B1E4D;
+  --bottom-right-dark: #2D2743;
+  --top-left-light: #b8b7ff;
+  --mid-left-light: #d9f6ff;
+  --center-light: #e7d3ff;
+  --top-right-light: #ffdcff;
+  --bottom-right-light: #b8c0ff;
 }
 
 body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: #11192A;
+  --body-bg: #11192A;
+  --body-bg-light: #f0f0f9;
+  background: var(--body-bg);
   /* background: #160722; */
 }
 
 div.bg1 {
   position: absolute;
   background: var(--top-left);
-  width: 475px;
-  height: 498px;
+  width: 35.625vw;
+  height: 77.19005vh;
   border-radius: 50%;
-  top: -225px;
-  left: -225px;
+  top: -34.7225vh;
+  /* Updated value */
+  left: -16.875vw;
   z-index: -100000;
   filter: blur(100px);
 }
 
 div.bg2 {
   position: absolute;
-  /* background: #0b665e; */
   background: var(--mid-left);
-  width: 475px;
-  height: 498px;
+  width: 35.625vw;
+  height: 77.01675vh;
+  /* Updated value */
   border-radius: 50%;
-  top: 225px;
-  left: -225px;
+  top: 34.7225vh;
+  /* Updated value */
+  left: -16.875vw;
   z-index: -100000;
   filter: blur(100px);
 }
@@ -77,11 +91,13 @@ div.bg2 {
 div.bg3 {
   position: absolute;
   background: var(--center);
-  width: 388px;
-  height: 429px;
+  width: 29.1vw;
+  height: 66.4765vh;
+  /* Updated value */
   border-radius: 50%;
-  top: -153px;
-  left: 332px;
+  top: -23.73115vh;
+  /* Updated value */
+  left: 24.9vw;
   z-index: -100000;
   filter: blur(100px);
 }
@@ -89,11 +105,13 @@ div.bg3 {
 div.bg4 {
   position: absolute;
   background: var(--top-right);
-  width: 688px;
-  height: 429px;
+  width: 51.6vw;
+  height: 66.4765vh;
+  /* Updated value */
   border-radius: 50%;
-  top: -153px;
-  right: -150px;
+  top: -23.73115vh;
+  /* Updated value */
+  right: -11.25vw;
   z-index: -100000;
   filter: blur(100px);
 }
@@ -101,11 +119,13 @@ div.bg4 {
 div.bg5 {
   position: absolute;
   background: var(--bottom-right);
-  width: 688px;
-  height: 429px;
+  width: 51.6vw;
+  height: 66.4765vh;
+  /* Updated value */
   border-radius: 50%;
-  bottom: -300px;
-  right: 82px;
+  bottom: -46.5066vh;
+  /* Updated value */
+  right: 6.15vw;
   z-index: -100000;
   filter: blur(100px);
 }

@@ -1,38 +1,10 @@
-div.chat-container {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: row;
-}
-
-div.previous-chats {
-  /* background: #fff; */
-  height: 100%;
-  width: 20.5vw;
-  display: flex;
-  flex-direction: column;
-  padding: .9vw 1.45vw;
-}
-
-div.chat {
-  width: calc(100% - 20.5vw);
-  display: flex;
-  margin: .75vw;
-  background: #b3b3b308;
-  border-radius: 3.75vw;
-  border: .075vw solid #3d3d3d;
-  flex-direction: column;
-  backdrop-filter: blur(71px);
-  align-items: center;
-}
-
 h1.title {
   color: rgba(255, 255, 255, 0.2);
   text-align: center;
   font-family: Righteous;
   font-size: 2vw;
   position: absolute;
-  top: 7.5vw;
+  top: 15.5vh;
   left: 50%;
   width: 90%;
   transform: translateX(-50%);
@@ -43,14 +15,11 @@ h1.title span.highlight {
   opacity: 0.4;
 }
 
-.link-icons {
-  opacity: 0.4;
-}
-
 img.placeholder-img {
   opacity: 0.3;
   position: absolute;
-  top: 1.5vw;
+  top: 3.1vh;
+  /* Updated from 3.1vh to 6.4vh */
   width: 7.43vw;
   height: auto !important;
 }
@@ -58,36 +27,20 @@ img.placeholder-img {
 div.msgs {
   /* background: #000; */
   width: 100%;
-  height: calc(100% - 7.5vw);
+  height: calc(100% - 15.5vh);
+  /* Updated from 7.5vw to 15.5vh */
   overflow: auto;
   display: flex;
   flex-direction: column;
-  gap: 1.5vw;
+  gap: 3.1vh;
   padding: 1.5vw;
-}
-
-div.msgs div.ai,
-div.msgs div.user {
-  display: flex;
-  flex-direction: row;
-  align-items: top;
-  gap: 2.25vw;
-  color: #fff;
-  position: relative;
-}
-
-div.msgs div.ai p.msg {
-  white-space: pre-wrap;
-}
-
-img.ai-pic {
-  border-radius: 50%;
 }
 
 div.input {
   display: flex;
   position: relative;
-  margin-bottom: 4.2vw;
+  margin-bottom: 8.7vh;
+  /* Updated from 4.2vw to 8.7vh */
   height: fit-content;
   width: 80%;
   align-items: center;
@@ -102,14 +55,19 @@ div.input button {
 
 div.input textarea {
   position: relative;
-  padding: .9vw 5.625vw .9vw 1.35vw;
-  min-height: 3.45vw;
-  height: 3.45vw;
+  padding: 1.9vh 5.625vw 1.9vh 1.35vw;
+  /* Updated padding values */
+  min-height: 7.12vh;
+  /* Updated from 3.45vw to 7.12vh */
+  height: 7.12vh;
+  /* Updated from 3.45vw to 7.12vh */
   width: 100%;
-  bottom: .375vw;
+  bottom: 0.77vh;
+  /* Updated from 0.375vw to 0.77vh */
   font-family: AbeeZee;
-  line-height: 1.8;
-  max-height: 9.75vw;
+  line-height: 1.6;
+  max-height: 20.12vh;
+  /* Updated from 9.75vw to 20.12vh */
   box-sizing: border-box;
   resize: none;
   font-family: Abeezee;
@@ -121,52 +79,29 @@ div.input textarea {
 }
 
 div.input button {
-  height: 3.15vw;
+  height: 6.51vh;
+  /* Updated from 3.15vw to 6.51vh */
   width: 3.15vw;
   position: absolute;
   right: 1.5vw;
   background: transparent;
   cursor: pointer;
   font-size: 1.6vw;
+  /* Updated from 1.6vw to 3.29vh */
   color: #dadada;
-  bottom: .375vw;
+  bottom: 0.77vh;
+  /* Updated from 0.375vw to 0.77vh */
 }
 
 p.note {
   position: absolute;
-  bottom: 1.8vw;
-  font-size: 0.83vw;
+  bottom: 3.72vh;
+  /* Updated from 1.8vw to 3.72vh */
+  font-size: .83vw;
   font-family: Quicksand;
   color: #cbcbcb;
   width: 80%;
   text-align: center;
-}
-
-div.previous-chats div.links {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  top: 5.86vw;
-  /* gap: 2px; */
-}
-
-div.previous-chats div.links a {
-  text-decoration: none;
-  color: #eee;
-  padding: .9vw;
-  font-family: abeezee;
-  font-size: .97vw;
-}
-
-div.previous-chats div.logo {
-  display: flex;
-  position: relative;
-  top: 1.125vw;
-}
-
-div.previous-chats div.logo img {
-  width: 6.3vw;
-  height: auto;
 }
 
 div.examples {
@@ -176,7 +111,9 @@ div.examples {
   display: flex;
   flex-direction: row;
   width: calc(100% - 35.5vw);
+  /* Updated from 35.5vw to 73.63vh */
   gap: 3vw;
+  /* Updated from 3vw to 6.21vh */
   transition: 150ms;
 }
 
@@ -186,7 +123,7 @@ div.example {
   border-radius: 1.1247vw;
   display: flex;
   flex-direction: column;
-  gap: 1.17vw;
+  gap: 2.42vh;
   padding: 1.12vw;
   color: #bfbfbf;
   font-family: Quicksand;
@@ -212,7 +149,8 @@ div.header .example-icon {
 div.columns {
   display: flex;
   flex-direction: column;
-  gap: .75vw;
+  gap: 1.55vh;
+  /* Updated from 0.75vw to 1.55vh */
 }
 
 div.columns p.col {
