@@ -1,95 +1,54 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
 
-export default function Home() {
+import { signIn, useSession } from 'next-auth/react';
+import React, { useState } from 'react';
+import Chat from './Components/Chat/chat';
+import styles from "./home.module.css";
+
+const page = () => {
+
+  const { data: session } = useSession();
+  const [ messages, setMessages ] = useState( [] );
+  const [ prompt, setPrompt ] = useState( {
+    value: "",
+  } );
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch( "/api/bard", {
+        method: "POST",
+        body: JSON.stringify( {
+          prompt
+        } )
+      } );
+
+      setPrompt( prev => ( { ...prev, value: "" } ) );
+
+      if ( response.ok ) {
+        let body = await response.json();
+        console.log( body );
+
+        setMessages( prev => [ ...prev, {
+          agent: "user",
+          text: prompt.value
+        }, {
+          agent: "AI",
+          text: body.answer
+        } ] );
+      }
+
+    } catch ( e ) {
+      console.log( e );
+    }
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <div className={ styles.chat }>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      {/* <button onClick={ () => signIn( "google" ) }>Continue with Google</button> */ }
+      <Chat messages={ messages } prompt={ prompt } setPrompt={ setPrompt } handleSubmit={ handleSubmit } />
+    </div>
+  );
+};
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
-}
+export default page;
