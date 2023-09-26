@@ -7,6 +7,8 @@ const page = () => {
   const [ prompt, setPrompt ] = useState( {
     value: ""
   } );
+
+  const [ darkMode, setDarkmode ] = useState( true );
   return (
     <Chat prompt={ prompt } setPrompt={ setPrompt } />
   );

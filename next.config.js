@@ -1,8 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
   images: {
-    domains: [ 'lh3.googleusercontent.com', "iiehkolsitbpijjhtjfu.supabase.co" ]
+    domains: [ 'lh3.googleusercontent.com', "res.cloudinary.com", "iiehkolsitbpijjhtjfu.supabase.co" ]
   }
 };
 

@@ -1,12 +1,14 @@
 "use client";
 
 import { signIn, useSession } from 'next-auth/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Chat from './Components/Chat/chat';
 import styles from "./home.module.css";
+import { useRouter } from 'next/navigation';
 
 const page = () => {
-
+  const router = useRouter();
+  useEffect( () => router.replace( "/chat" ), [] );
   const { data: session } = useSession();
   const [ messages, setMessages ] = useState( [] );
   const [ prompt, setPrompt ] = useState( {

@@ -1,0 +1,11 @@
+div.theme-changer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  font-family: abeezee;
+  font-size: 1.3vw;
+  color: #70979a;
+  position: relative;
+  top: 5vh;
+}

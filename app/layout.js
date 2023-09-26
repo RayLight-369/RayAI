@@ -1,6 +1,7 @@
 import Provider from '@/Provider/Provider.jsx';
 
 import "./globals.css";
+import ThemeProvider from './Contexts/ThemeContext/ThemeContext';
 
 export const metadata = {
   title: 'RayAI',
@@ -15,14 +16,16 @@ export default function RootLayout ( { children } ) {
     <html lang="en">
       <body>
         <Provider >
-          <main>
-            <div className='bg1'></div>
-            <div className='bg2'></div>
-            <div className='bg3'></div>
-            <div className='bg4'></div>
-            <div className='bg5'></div>
-            { children }
-          </main>
+          <ThemeProvider>
+            <main>
+              <div className='bg1'></div>
+              <div className='bg2'></div>
+              <div className='bg3'></div>
+              <div className='bg4'></div>
+              <div className='bg5'></div>
+              { children }
+            </main>
+          </ThemeProvider>
         </Provider>
       </body>
     </html>
