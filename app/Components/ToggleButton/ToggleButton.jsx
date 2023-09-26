@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from "./ToggleButton.module.css";
 
-const ToggleButton = () => {
+const ToggleButton = ( { checked = true, className = "", ...props } ) => {
   return (
-    <label className={ styles[ "switch" ] }>
-      <input type="checkbox" />
+    <label className={ `${ styles[ "switch" ] } ${ className }` }>
+      <input type="checkbox" checked={ checked } { ...props } />
       <span className={ styles[ "slider" ] }></span>
     </label>
   );
