@@ -5,11 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBarsStaggered, faPaperPlane, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
+import { useTheme } from "../../Contexts/ThemeContext/ThemeContext";
 
 
 const Chat = ( { prompt, setPrompt, handleSubmit = () => { }, messages = [] } ) => {
 
   const { data: session } = useSession();
+  const { darkMode } = useTheme();
 
   const handleInputChange = ( e ) => {
     setPrompt( prev => ( { ...prev, value: e.target.value } ) );
@@ -38,7 +40,7 @@ const Chat = ( { prompt, setPrompt, handleSubmit = () => { }, messages = [] } ) 
         className={ styles[ 'placeholder-img' ] }
       />
       <h1 className={ styles[ 'title' ] }><span className={ styles[ 'highlight' ] }>RayAI:{ " " }</span>Your Personal AI.</h1>
-      <div className={ styles[ "examples" ] }>
+      <div className={ `${ styles[ "examples" ] } ${ !darkMode ? styles[ "light" ] : "" }` }>
         <div className={ styles[ "example" ] }>
           <div className={ styles[ "header" ] }>
             <FontAwesomeIcon className={ styles[ 'example-icon' ] } icon={ faBarsStaggered } />
@@ -77,7 +79,7 @@ const Chat = ( { prompt, setPrompt, handleSubmit = () => { }, messages = [] } ) 
           </div>
         ) ) }
       </div>
-      <div className={ styles[ "input" ] }>
+      <div className={ `${ styles[ "input" ] } ${ !darkMode ? styles[ "light" ] : "" }` }>
         <textarea rows={ 1 } type="text" placeholder='Enter Prompt' onInput={ handleInputChange } value={ prompt.value } />
         <button type='button' onClick={ handleSubmit }>
           <FontAwesomeIcon icon={ faPaperPlane } />
