@@ -1,5 +1,6 @@
 import { DiscussServiceClient } from "@google-ai/generativelanguage";
 import { GoogleAuth } from "google-auth-library";
+import { } from "";
 
 const MODEL_NAME = "models/chat-bison-001";
 const API_KEY = process.env.API_KEY;
