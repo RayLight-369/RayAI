@@ -62,6 +62,12 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
 
   }, [ messages ] );
 
+  const handleSubmit = e => {
+    if ( e.key == "Enter" ) {
+      send();
+    }
+  };
+
   const handleInputChange = useCallback( ( e ) => {
     setPrompt( prev => ( { ...prev, value: e.target.value } ) );
     let availableHeight = ( e.target.scrollHeight / window?.innerWidth ) * 100;
@@ -137,7 +143,7 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
         ) ) }
       </div>
       <div className={ `${ styles[ "input" ] } ${ !darkMode ? styles[ "light" ] : "" }` }>
-        <textarea rows={ 1 } type="text" placeholder='Enter Prompt' onInput={ handleInputChange } value={ prompt.value } />
+        <textarea onClick={ handleSubmit } rows={ 1 } type="text" placeholder='Enter Prompt' onInput={ handleInputChange } value={ prompt.value } />
         <button type='button' onClick={ send }>
           <FontAwesomeIcon icon={ faPaperPlane } />
         </button>
