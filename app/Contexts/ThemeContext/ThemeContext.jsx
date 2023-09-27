@@ -14,7 +14,7 @@ const ThemeProvider = ( { children } ) => {
   useEffect( () => {
     const storedDarkMode = JSON.parse( localStorage.getItem( "darkMode" ) );
 
-    if ( "darkMode" in storedDarkMode ) {
+    if ( storedDarkMode && "darkMode" in storedDarkMode ) {
       setDarkMode( storedDarkMode.darkMode );
       console.log( storedDarkMode );
     } else {
