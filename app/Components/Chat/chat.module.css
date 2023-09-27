@@ -30,13 +30,15 @@ img.placeholder-img {
 div.msgs {
   /* background: #000; */
   width: 100%;
-  height: calc(100% - 15.5vh);
+  height: calc(100% - 20.5vh);
   /* Updated from 7.5vw to 15.5vh */
   overflow: auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 3.1vh;
   padding: 1.5vw;
+  scroll-behavior: smooth;
 }
 
 div.input {
@@ -65,7 +67,7 @@ div.input textarea {
   height: 7.12vh;
   /* Updated from 3.45vw to 7.12vh */
   width: 100%;
-  bottom: 0.77vh;
+  bottom: -3.6vh;
   /* Updated from 0.375vw to 0.77vh */
   font-family: AbeeZee;
   line-height: 1.6;
@@ -75,7 +77,7 @@ div.input textarea {
   resize: none;
   font-family: Abeezee;
   border-radius: .525vw;
-  font-size: 1.2vw;
+  font-size: 1.1vw;
   color: #cbcbcb;
   background: #2a3e43;
   /* #364057 */
@@ -98,7 +100,7 @@ div.input button {
   font-size: 1.6vw;
   /* Updated from 1.6vw to 3.29vh */
   color: #dadada;
-  bottom: 0.77vh;
+  bottom: -3.6vh;
   /* Updated from 0.375vw to 0.77vh */
 }
 
@@ -190,4 +192,46 @@ div.columns p.col {
 
 div.columns p.col:hover {
   transform: scale(1.04);
+}
+
+div.markdown-content,
+div.markdown-content * {
+  white-space: pre-wrap;
+  line-height: 1.7;
+}
+
+div.user,
+div.ai {
+  font-family: abeezee;
+  font-size: 1vw;
+  background: #5656563c;
+  border-radius: 1.4vw;
+  padding: 2vw 2vw 2vw 3vw;
+  border: #365057 1px solid;
+  display: flex;
+  color: #bebebe;
+  flex-direction: row;
+  width: calc(100% - 1.8vw);
+  position: relative;
+  left: .5vw;
+  transition: 200ms ease-in-out;
+}
+
+@keyframes msg {
+  0% {
+    height: 0;
+  }
+
+  100% {
+    height: auto;
+  }
+}
+
+.text-pic {
+  width: 2.7vw;
+  height: 2.7vw;
+  position: absolute;
+  left: -1vw;
+  top: 2.8vh;
+  border-radius: .5vw;
 }

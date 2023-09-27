@@ -19,6 +19,7 @@ div.layout {
   display: flex;
   margin: .75vw;
   background: #b3b3b308;
+  overflow: hidden;
   border-radius: 3.75vw;
   border: .075vw solid #365057;
   flex-direction: column;
@@ -66,8 +67,9 @@ div.previous-chats div.logo img {
 
 div.account {
   position: absolute;
-  bottom: 12vh;
+  bottom: 8vh;
   left: 2vw;
+  width: 17vw;
 }
 
 div.account button {
@@ -159,4 +161,40 @@ div.build-info button.card-btn:hover {
   100% {
     transform: scale(1);
   }
+}
+
+div.profile {
+  display: flex;
+  flex-direction: row;
+  gap: .7vw;
+  align-items: center;
+  font-family: abeezee;
+  width: 100%;
+}
+
+div.img img {
+  border-radius: 50%;
+  width: 2.5vw;
+  height: 2.5vw;
+}
+
+div.name-email {
+  display: flex;
+  flex-direction: column;
+  font-size: .9vw;
+  color: white;
+  gap: .6vh;
+}
+
+p.email {
+  font-size: .85vw;
+}
+
+.logout-icon {
+  color: white;
+  position: absolute;
+  right: 0;
+  font-size: .9vw;
+  cursor: pointer;
+  padding: .7vw;
 }

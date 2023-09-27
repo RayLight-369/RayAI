@@ -3,9 +3,9 @@
 import React from 'react';
 import styles from "./layout.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGears, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faGears, faMagnifyingGlass, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelope, faMessage } from '@fortawesome/free-regular-svg-icons';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
@@ -45,7 +45,21 @@ const ChatPageLayout = ( { children } ) => {
         </div>
         <div className={ styles[ 'account' ] }>
           { session?.user && status != "loading" ? (
-            <p>user</p>
+            <div className={ styles[ 'profile' ] }>
+              <div className={ styles[ 'img' ] }>
+                <Image
+                  src={ session.user.image }
+                  alt='profile'
+                  width={ 30 }
+                  height={ 30 }
+                />
+              </div>
+              <div className={ styles[ 'name-email' ] }>
+                <p className={ styles[ "name" ] }>{ session.user.name }</p>
+                <p className={ styles[ "email" ] }>{ session.user.email }</p>
+              </div>
+              <FontAwesomeIcon onClick={ () => signOut() } className={ styles[ "logout-icon" ] } icon={ faRightFromBracket } />
+            </div>
           ) : status != "loading" ? (
             <button onClick={ () => signIn( "google" ) } type="button"><FontAwesomeIcon className={ styles[ 'google-icon' ] } icon={ faGoogle } /><span>Continue with Google</span></button>
           ) : (
