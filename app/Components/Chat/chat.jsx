@@ -6,7 +6,7 @@ import { faBarsStaggered, faPaperPlane, faTriangleExclamation } from '@fortaweso
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useTheme } from "../../Contexts/ThemeContext/ThemeContext";
-import { memo, useCallback, useEffect, useRef } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { marked } from "marked";
 import MarkdownRenderer from "../MarkdownRenderer/MarkdownRenderer";
 
@@ -14,6 +14,7 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
 
   const { data: session } = useSession();
   const { darkMode } = useTheme();
+  const [ processing, setProcessing ] = useState( false );
 
   const msgsRef = useRef();
 
@@ -27,8 +28,10 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
   useEffect( () => {
 
     const SendPrompt = async ( prompts ) => {
+
       try {
         if ( messages[ messages.length - 1 ].agent != "AI" ) {
+
           const body = await fetch( "/api/bard", {
             method: "POST",
             body: JSON.stringify( {
@@ -58,6 +61,12 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
     }
 
   }, [ messages ] );
+
+  const handleSubmit = e => {
+    if ( e.key == "Enter" ) {
+      send();
+    }
+  };
 
   const handleInputChange = useCallback( ( e ) => {
     setPrompt( prev => ( { ...prev, value: e.target.value } ) );
@@ -117,16 +126,16 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
       <div className={ styles[ "msgs" ] } ref={ msgsRef }>
 
         { messages.map( ( msg, key ) => (
-          <div key={ key } className={ msg.agent == "user" ? styles[ "user" ] : styles[ "ai" ] }>
+          <div key={ key } className={ msg.agent == "user" ? styles[ "user" ] : styles[ "ai" ] }
+            style={ {
+              animation: "msg ease-in-out 2s 1"
+            } }>
             <Image
               src={ msg.agent.toLowerCase() != "user" ? "/RayAI.png" : session?.user.image }
               alt='img'
               width={ 50 }
               height={ 50 }
               className={ styles[ 'text-pic' ] }
-              style={ {
-                animation: "msg ease-in-out 2s 1"
-              } }
             />
             {/* <p key={ key } className={ styles[ "msg" ] }>{ marked( msg.content ) }</p> */ }
             <MarkdownRenderer text={ msg.content } className={ styles[ "markdown-content" ] } />
@@ -134,7 +143,7 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
         ) ) }
       </div>
       <div className={ `${ styles[ "input" ] } ${ !darkMode ? styles[ "light" ] : "" }` }>
-        <textarea rows={ 1 } type="text" placeholder='Enter Prompt' onInput={ handleInputChange } value={ prompt.value } />
+        <textarea onClick={ handleSubmit } rows={ 1 } type="text" placeholder='Enter Prompt' onInput={ handleInputChange } value={ prompt.value } />
         <button type='button' onClick={ send }>
           <FontAwesomeIcon icon={ faPaperPlane } />
         </button>
