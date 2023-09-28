@@ -91,13 +91,13 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
       { !messages.length && (
         <>
           <Image
-            src={ "/logo.png" }
+            src={ darkMode ? "/logo.png" : "/logo-dark.png" }
             alt='logo'
             width={ 100 }
             height={ 65 }
-            className={ styles[ 'placeholder-img' ] }
+            className={ `${ styles[ 'placeholder-img' ] } ${ !darkMode ? styles[ "light" ] : "" }` }
           />
-          <h1 className={ styles[ 'title' ] }><span className={ styles[ 'highlight' ] }>RayAI:{ " " }</span>Your Personal AI.</h1>
+          <h1 className={ `${ styles[ 'title' ] } ${ !darkMode ? styles[ "light" ] : "" }` }><span className={ styles[ 'highlight' ] }>RayAI:{ " " }</span>Your Personal AI.</h1>
           <div className={ `${ styles[ "examples" ] } ${ !darkMode ? styles[ "light" ] : "" }` }>
             <div className={ styles[ "example" ] }>
               <div className={ styles[ "header" ] }>
@@ -124,7 +124,7 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
           </div>
         </>
       ) }
-      <div className={ styles[ "msgs" ] } ref={ msgsRef }>
+      <div className={ `${ styles[ "msgs" ] } ${ !darkMode ? styles[ "light" ] : "" }` } ref={ msgsRef }>
 
         { messages.map( ( msg, key ) => (
           <div key={ key } className={ msg.agent == "user" ? styles[ "user" ] : styles[ "ai" ] }
@@ -140,6 +140,7 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
             />
             {/* <p key={ key } className={ styles[ "msg" ] }>{ marked( msg.content ) }</p> */ }
             <MarkdownRenderer text={ msg.content } className={ styles[ "markdown-content" ] } />
+
           </div>
         ) ) }
       </div>

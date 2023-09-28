@@ -11,11 +11,11 @@ h1.title {
 }
 
 h1.title.light {
-  color: #18868d30;
+  color: #05858d5c;
 }
 
 h1.title.light span.highlight {
-  color: #18868d30;
+  color: #05858d5c;
 }
 
 img.placeholder-img {
@@ -87,6 +87,7 @@ div.input textarea {
 div.input.light textarea {
   background: #fff;
   box-shadow: 0 0 2px #b9b9b9;
+  color: #474747;
 }
 
 div.input button {
@@ -105,7 +106,7 @@ div.input button {
 }
 
 div.input.light button {
-  color: #365057;
+  color: #18868d;
 }
 
 p.note {
@@ -179,6 +180,21 @@ div.columns {
   flex-direction: column;
   gap: 1.55vh;
   /* Updated from 0.75vw to 1.55vh */
+}
+
+div.msgs.light div.user,
+div.msgs.light div.ai {
+  border-color: #c9e0df;
+  background: #def7f352;
+  color: #254a4d;
+}
+
+div.msgs.light div.markdown-content > pre > pre {
+  border: 1px solid #e8ebec;
+}
+
+div.examples.light div.example div.header {
+  color: #18868d;
 }
 
 div.columns p.col {
