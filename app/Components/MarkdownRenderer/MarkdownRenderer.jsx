@@ -1,9 +1,10 @@
 "use client";
 
 import { useTheme } from '@/app/Contexts/ThemeContext/ThemeContext';
-import { faCopy } from '@fortawesome/free-regular-svg-icons';
+import { faCopy as copyRegular } from '@fortawesome/free-regular-svg-icons';
+import { faCopy as copySolid } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { memo, useRef } from 'react';
+import { memo, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark, oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
@@ -11,6 +12,7 @@ import { atomDark, oneLight } from 'react-syntax-highlighter/dist/cjs/styles/pri
 const MarkdownRenderer = ( { text, className, optionsClassName = "" } ) => {
 
   const { darkMode } = useTheme();
+  const [ copied, setCopied ] = useState( false );
   const codeRef = useRef();
 
   return (
@@ -23,14 +25,20 @@ const MarkdownRenderer = ( { text, className, optionsClassName = "" } ) => {
               <SyntaxHighlighter
                 children={ String( children ).replace( /\n$/, "" ) }
                 language={ match[ 1 ] }
-                ref={ codeRef }
                 style={ darkMode ? atomDark : oneLight }
                 { ...props }
               />
               <div className={ optionsClassName }>
-                <FontAwesomeIcon onClick={ () => {
-                  navigator.clipboard.writeText( codeRef.current.innerText );
-                } } icon={ faCopy } />
+                <FontAwesomeIcon onClick={ ( e ) => {
+                  if ( !copied ) {
+                    navigator.clipboard.writeText( e.target.parentNode.previousSibling?.innerText );
+                    setCopied( true );
+                    let timeOut = setTimeout( () => {
+                      setCopied( false );
+                      clearTimeout( timeOut );
+                    }, 2000 );
+                  }
+                } } icon={ copied ? copySolid : copyRegular } />
               </div>
             </>
           ) : (
