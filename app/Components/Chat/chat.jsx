@@ -15,6 +15,7 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
   const { data: session } = useSession();
   const { darkMode } = useTheme();
   const [ processing, setProcessing ] = useState( false );
+  const [ abortController, setAbortController ] = useState( null );
 
   const msgsRef = useRef();
 
@@ -27,16 +28,22 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
 
   useEffect( () => {
 
+    const controller = new AbortController();
+    setAbortController( controller );
+
     const SendPrompt = async ( prompts ) => {
 
       try {
         if ( messages[ messages.length - 1 ].agent != "AI" ) {
 
+          setProcessing( true );
+
           const body = await fetch( "/api/bard", {
             method: "POST",
             body: JSON.stringify( {
               messages: prompts
-            } )
+            } ),
+            signal: controller.signal
           } );
 
           let response = await body.json();
@@ -48,6 +55,8 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
         }
       } catch ( e ) {
         console.log( e );
+      } finally {
+        setProcessing( false );
       }
 
     };
@@ -61,6 +70,13 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
     }
 
   }, [ messages ] );
+
+  const handleTermination = () => {
+    if ( abortController ) {
+      abortController.abort();
+      setProcessing( false );
+    }
+  };
 
   const handleSubmit = e => {
     if ( e.key == "Enter" && !e.shiftKey ) {
@@ -144,6 +160,7 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
           </div>
         ) ) }
       </div>
+      <button onClick={ handleTermination } className={ `${ styles[ "terminate" ] } ${ processing ? styles[ "processing" ] : "" }` }>Terminate...</button>
       <div className={ `${ styles[ "input" ] } ${ !darkMode ? styles[ "light" ] : "" }` }>
         <textarea onKeyDown={ handleSubmit } rows={ 1 } type="text" placeholder='Enter Prompt' onInput={ handleInputChange } value={ prompt.value } />
         <button type='button' onClick={ send }>

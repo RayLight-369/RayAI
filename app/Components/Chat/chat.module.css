@@ -35,9 +35,10 @@ div.msgs {
   overflow: auto;
   display: flex;
   flex-direction: column;
+  position: relative;
   align-items: center;
   gap: 3.1vh;
-  padding: 1.5vw;
+  padding: 1.5vw 1.5vw 6vw 1.5vw;
   scroll-behavior: smooth;
   transition: 150ms ease-in-out;
 }
@@ -59,6 +60,7 @@ div.input button {
   outline: none;
   border: none;
   transition: 150ms ease-in-out;
+  z-index: 100;
 }
 
 div.input textarea {
@@ -114,6 +116,26 @@ div.code-options > * {
 div.code-options > *:hover {
   background: #cde5eb;
   color: #474747;
+}
+
+button.terminate {
+  position: absolute;
+  bottom: 5vw;
+  transition: 200ms ease-in-out;
+  border: none;
+  padding: .9vw 5vw;
+  cursor: pointer;
+  border-radius: .4vw;
+  color: white;
+  background: linear-gradient(108deg, #052437 -7.56%, #14507d 29.51%, #47a2a5 69.57%, #bcf7ff 107.24%);
+}
+
+button.terminate.processing {
+  bottom: 11vw;
+}
+
+button.terminate:hover {
+  transform: scale(1.04);
 }
 
 div.input button {
