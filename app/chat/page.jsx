@@ -2,15 +2,15 @@
 
 import { useState } from 'react';
 import Chat from '../Components/Chat/chat';
+import { useMessages } from '../Contexts/MessagesContext/MessagesContext';
 
 const page = () => {
   const [ prompt, setPrompt ] = useState( {
     value: ""
   } );
 
-  const [ messages, setMessages ] = useState( [] );
+  const { messages, setMessages } = useMessages();
 
-  const [ darkMode, setDarkmode ] = useState( true );
   return (
     <Chat prompt={ prompt } setPrompt={ setPrompt } messages={ messages } setMessages={ setMessages } />
   );
