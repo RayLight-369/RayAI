@@ -78,7 +78,7 @@ body {
   overflow: hidden;
   --body-bg: #012127;
   --body-bg-dark: #012127;
-  --body-bg-light: #ecfeff;
+  --body-bg-light: #96dade;
   background: var(--body-bg);
   /* background: #160722; */
   /* #11192A */
