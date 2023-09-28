@@ -139,7 +139,7 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
               className={ styles[ 'text-pic' ] }
             />
             {/* <p key={ key } className={ styles[ "msg" ] }>{ marked( msg.content ) }</p> */ }
-            <MarkdownRenderer text={ msg.content } className={ styles[ "markdown-content" ] } />
+            <MarkdownRenderer text={ msg.content } optionsClassName={ styles[ "code-options" ] } className={ styles[ "markdown-content" ] } />
 
           </div>
         ) ) }

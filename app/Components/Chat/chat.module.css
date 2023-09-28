@@ -39,6 +39,7 @@ div.msgs {
   gap: 3.1vh;
   padding: 1.5vw;
   scroll-behavior: smooth;
+  transition: 150ms ease-in-out;
 }
 
 div.input {
@@ -50,12 +51,14 @@ div.input {
   width: 80%;
   align-items: center;
   justify-content: center;
+  transition: 150ms ease-in-out;
 }
 
 div.input textarea,
 div.input button {
   outline: none;
   border: none;
+  transition: 150ms ease-in-out;
 }
 
 div.input textarea {
@@ -87,6 +90,29 @@ div.input textarea {
 div.input.light textarea {
   background: #fff;
   box-shadow: 0 0 2px #b9b9b9;
+  color: #474747;
+}
+
+div.code-options {
+  position: absolute;
+  bottom: .3vw;
+  left: calc(100% - 2.8vw);
+  display: none;
+  transition: 150ms ease-in-out;
+}
+
+div.markdown-content pre:hover div.code-options {
+  display: inline-block;
+}
+
+div.code-options > * {
+  padding: .6vw;
+  cursor: pointer;
+  border-radius: .35vw;
+}
+
+div.code-options > *:hover {
+  background: #cde5eb;
   color: #474747;
 }
 
@@ -189,8 +215,13 @@ div.msgs.light div.ai {
   color: #254a4d;
 }
 
+div.msgs div.markdown-content > pre {
+  position: relative;
+}
+
 div.msgs.light div.markdown-content > pre > pre {
   border: 1px solid #e8ebec;
+  transition: 150ms ease-in-out;
 }
 
 div.examples.light div.example div.header {
