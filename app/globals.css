@@ -87,13 +87,13 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8.5px;
   background: transparent;
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #94949442;
+  background: #7cd0cc;
   border-radius: 5px;
   min-height: 30px;
 }

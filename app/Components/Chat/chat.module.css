@@ -11,11 +11,11 @@ h1.title {
 }
 
 h1.title.light {
-  color: #18868d30;
+  color: #05858d5c;
 }
 
 h1.title.light span.highlight {
-  color: #18868d30;
+  color: #05858d5c;
 }
 
 img.placeholder-img {
@@ -35,10 +35,12 @@ div.msgs {
   overflow: auto;
   display: flex;
   flex-direction: column;
+  position: relative;
   align-items: center;
   gap: 3.1vh;
-  padding: 1.5vw;
+  padding: 1.5vw 1.5vw 6vw 1.5vw;
   scroll-behavior: smooth;
+  transition: 150ms ease-in-out;
 }
 
 div.input {
@@ -50,12 +52,15 @@ div.input {
   width: 80%;
   align-items: center;
   justify-content: center;
+  transition: 150ms ease-in-out;
 }
 
 div.input textarea,
 div.input button {
   outline: none;
   border: none;
+  transition: 150ms ease-in-out;
+  z-index: 100;
 }
 
 div.input textarea {
@@ -87,6 +92,50 @@ div.input textarea {
 div.input.light textarea {
   background: #fff;
   box-shadow: 0 0 2px #b9b9b9;
+  color: #474747;
+}
+
+div.code-options {
+  position: absolute;
+  bottom: .3vw;
+  left: calc(100% - 2.8vw);
+  display: none;
+  transition: 150ms ease-in-out;
+}
+
+div.markdown-content pre:hover div.code-options {
+  display: inline-block;
+}
+
+div.code-options > * {
+  padding: .6vw;
+  cursor: pointer;
+  border-radius: .35vw;
+}
+
+div.code-options > *:hover {
+  background: #cde5eb;
+  color: #474747;
+}
+
+button.terminate {
+  position: absolute;
+  bottom: 5vw;
+  transition: 200ms ease-in-out;
+  border: none;
+  padding: .9vw 5vw;
+  cursor: pointer;
+  border-radius: .4vw;
+  color: white;
+  background: linear-gradient(108deg, #052437 -7.56%, #14507d 29.51%, #47a2a5 69.57%, #bcf7ff 107.24%);
+}
+
+button.terminate.processing {
+  bottom: 11vw;
+}
+
+button.terminate:hover {
+  transform: scale(1.04);
 }
 
 div.input button {
@@ -105,7 +154,7 @@ div.input button {
 }
 
 div.input.light button {
-  color: #365057;
+  color: #18868d;
 }
 
 p.note {
@@ -179,6 +228,26 @@ div.columns {
   flex-direction: column;
   gap: 1.55vh;
   /* Updated from 0.75vw to 1.55vh */
+}
+
+div.msgs.light div.user,
+div.msgs.light div.ai {
+  border-color: #c9e0df;
+  background: #def7f352;
+  color: #254a4d;
+}
+
+div.msgs div.markdown-content > pre {
+  position: relative;
+}
+
+div.msgs.light div.markdown-content > pre > pre {
+  border: 1px solid #e8ebec;
+  transition: 150ms ease-in-out;
+}
+
+div.examples.light div.example div.header {
+  color: #18868d;
 }
 
 div.columns p.col {
