@@ -63,7 +63,8 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
   }, [ messages ] );
 
   const handleSubmit = e => {
-    if ( e.key == "Enter" ) {
+    if ( e.key == "Enter" && !e.shiftKey ) {
+      e.preventDefault();
       send();
     }
   };
@@ -143,7 +144,7 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
         ) ) }
       </div>
       <div className={ `${ styles[ "input" ] } ${ !darkMode ? styles[ "light" ] : "" }` }>
-        <textarea onClick={ handleSubmit } rows={ 1 } type="text" placeholder='Enter Prompt' onInput={ handleInputChange } value={ prompt.value } />
+        <textarea onKeyDown={ handleSubmit } rows={ 1 } type="text" placeholder='Enter Prompt' onInput={ handleInputChange } value={ prompt.value } />
         <button type='button' onClick={ send }>
           <FontAwesomeIcon icon={ faPaperPlane } />
         </button>
