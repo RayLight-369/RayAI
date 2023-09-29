@@ -1,10 +1,24 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Chat from '../Components/Chat/chat';
 import { useMessages } from '../Contexts/MessagesContext/MessagesContext';
+import { signIn, useSession } from 'next-auth/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 const page = () => {
+  const { data: session } = useSession();
+  const [ signedIn, setSignedIn ] = useState( false );
+
+  useEffect( () => {
+    if ( session.user ) {
+      setSignedIn( true );
+    } else {
+      setSignedIn( false );
+    }
+  }, [ session ] );
+
   const [ prompt, setPrompt ] = useState( {
     value: ""
   } );
@@ -12,7 +26,13 @@ const page = () => {
   const { messages, setMessages } = useMessages();
 
   return (
-    <Chat prompt={ prompt } setPrompt={ setPrompt } messages={ messages } setMessages={ setMessages } />
+    <>
+      { signedIn ? (
+        <Chat prompt={ prompt } setPrompt={ setPrompt } messages={ messages } setMessages={ setMessages } />
+      ) : (
+        <button onClick={ () => signIn( "google" ) } type="button"><FontAwesomeIcon className={ styles[ 'google-icon' ] } icon={ faGoogle } /><span>Continue with Google</span></button>
+      ) }
+    </>
   );
 };
 
