@@ -72,19 +72,6 @@ div.account {
   width: 17vw;
 }
 
-div.account button {
-  background-color: #4285F4;
-  color: #fff;
-  padding: .75vw .75vw;
-  border: none;
-  border-radius: .375vw;
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  font-size: 1vw;
-  gap: .65vw;
-}
-
 div.build-info {
   padding: .8vw;
   position: relative;
@@ -188,6 +175,19 @@ div.name-email {
 
 p.email {
   font-size: .85vw;
+}
+
+div.account button {
+  background-color: #4285F4;
+  color: #fff;
+  padding: .75vw .75vw;
+  border: none;
+  border-radius: .375vw;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  font-size: 1vw;
+  gap: .65vw;
 }
 
 .logout-icon {
