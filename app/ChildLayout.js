@@ -1,6 +1,5 @@
 "use client";
 
-import React from 'react';
 import styles from "./layout.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGears, faMagnifyingGlass, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
@@ -9,10 +8,9 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-import { useTheme } from '../Contexts/ThemeContext/ThemeContext';
+import { useTheme } from './Contexts/ThemeContext/ThemeContext';
 
-
-const ChatPageLayout = ( { children } ) => {
+const ChildLayout = ( { children } ) => {
 
   const { data: session, status } = useSession();
   const { darkMode } = useTheme();
@@ -74,4 +72,4 @@ const ChatPageLayout = ( { children } ) => {
   );
 };
 
-export default ChatPageLayout;
+export default ChildLayout;

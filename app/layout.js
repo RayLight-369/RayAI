@@ -1,8 +1,9 @@
 import Provider from '@/Provider/Provider.jsx';
-
-import "./globals.css";
 import ThemeProvider from './Contexts/ThemeContext/ThemeContext';
 import MessagesProvider from './Contexts/MessagesContext/MessagesContext';
+import ChildLayout from './ChildLayout';
+
+import "./globals.css";
 
 export const metadata = {
   title: 'RayAI',
@@ -25,7 +26,9 @@ export default function RootLayout ( { children } ) {
               <div className='bg4'></div>
               <div className='bg5'></div>
               <MessagesProvider>
-                { children }
+                <ChildLayout>
+                  { children }
+                </ChildLayout>
               </MessagesProvider>
             </main>
           </ThemeProvider>
