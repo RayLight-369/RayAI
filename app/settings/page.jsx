@@ -2,7 +2,7 @@
 
 import ToggleButton from '@/app/Components/ToggleButton/ToggleButton';
 import { useTheme } from '@/app/Contexts/ThemeContext/ThemeContext';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import styles from "./page.module.css";
 

@@ -1,6 +1,5 @@
 "use client";
 
-import React from 'react';
 import styles from "./layout.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGears, faMagnifyingGlass, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
@@ -9,10 +8,9 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-import { useTheme } from '../Contexts/ThemeContext/ThemeContext';
+import { useTheme } from './Contexts/ThemeContext/ThemeContext';
 
-
-const ChatPageLayout = ( { children } ) => {
+const ChildLayout = ( { children } ) => {
 
   const { data: session, status } = useSession();
   const { darkMode } = useTheme();
@@ -30,10 +28,10 @@ const ChatPageLayout = ( { children } ) => {
 
         </div>
         <div className={ styles[ "links" ] }>
-          <Link href={ "/chat" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faMessage } />&nbsp;&nbsp;&nbsp;Chats</Link>
-          <Link href={ "/chat" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faMagnifyingGlass } />&nbsp;&nbsp;&nbsp;Search</Link>
-          <Link href={ "/chat" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faEnvelope } />&nbsp;&nbsp;&nbsp;Support</Link>
-          <Link href={ "/chat/settings" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faGears } />&nbsp;&nbsp;&nbsp;Settings</Link>
+          <Link href={ "/" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faMessage } />&nbsp;&nbsp;&nbsp;Chats</Link>
+          <Link href={ "/" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faMagnifyingGlass } />&nbsp;&nbsp;&nbsp;Search</Link>
+          <Link href={ "/" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faEnvelope } />&nbsp;&nbsp;&nbsp;Support</Link>
+          <Link href={ "/settings" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faGears } />&nbsp;&nbsp;&nbsp;Settings</Link>
         </div>
         <div className={ styles[ 'build-info' ] }>
           <div className={ styles[ 'version' ] }>
@@ -74,4 +72,4 @@ const ChatPageLayout = ( { children } ) => {
   );
 };
 
-export default ChatPageLayout;
+export default ChildLayout;
