@@ -10,7 +10,7 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import styles from "./page.module.css";
 
 const page = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [ signedIn, setSignedIn ] = useState( false );
 
   useEffect( () => {
@@ -29,10 +29,12 @@ const page = () => {
 
   return (
     <>
-      { signedIn ? (
+      { signedIn && status != "loading" ? (
         <Chat prompt={ prompt } setPrompt={ setPrompt } messages={ messages } setMessages={ setMessages } />
+      ) : status == "loading" ? (
+        <p>Loading...</p>
       ) : (
-        <button className={ styles[ 'google-btn' ] } onClick={ () => signIn( "google" ) } type="button"><FontAwesomeIcon className={ styles[ 'google-icon' ] } icon={ faGoogle } /><span>Continue with Google</span></button>
+        <button className={ styles[ 'google-btn' ] } onClick={ () => signIn( "google" ) } type="button"><FontAwesomeIcon className={ styles[ 'google-icon' ] } icon={ faGoogle } /><span>Continue with Google</span></button >
       ) }
     </>
   );
