@@ -179,6 +179,7 @@ div.examples {
   gap: 3vw;
   /* Updated from 3vw to 6.21vh */
   transition: 150ms;
+  z-index: 100;
 }
 
 div.example {

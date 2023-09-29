@@ -102,6 +102,17 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
     }
   }, [] );
 
+  function handleExampleCopy ( e ) {
+    let text = e.target.innerText;
+    text = [ ...text ];
+
+    text.pop();
+    text.shift();
+    text = text.join( "" );
+
+    navigator.clipboard.writeText( text );
+  }
+
   return (
     <>
       { !messages.length && (
@@ -121,9 +132,9 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
                 <span>Example</span>
               </div>
               <div className={ styles[ "columns" ] }>
-                <p className={ styles[ "col" ] }>{ `"Tell me about the history of Eiffel Tower."` }</p>
-                <p className={ styles[ "col" ] }>{ `"Give me information related to EarthQuakes."` }</p>
-                <p className={ styles[ "col" ] }>{ `"Calculate the derivative of the function : 4x + 9"` }</p>
+                <p className={ styles[ "col" ] } onClick={ handleExampleCopy }>{ `"Tell me about the history of Eiffel Tower."` }</p>
+                <p className={ styles[ "col" ] } onClick={ handleExampleCopy }>{ `"Give me information related to EarthQuakes."` }</p>
+                <p className={ styles[ "col" ] } onClick={ handleExampleCopy }>{ `"Calculate the derivative of the function : 4x + 9"` }</p>
               </div>
             </div>
             <div className={ styles[ "example" ] }>
