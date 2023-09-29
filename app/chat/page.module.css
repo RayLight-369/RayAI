@@ -1,0 +1,24 @@
+button.google-btn {
+  background-color: #4285F4;
+  color: #fff;
+  padding: .75vw .75vw;
+  border: none;
+  border-radius: .375vw;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  font-size: 1vw;
+  gap: .65vw;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.logout-icon {
+  color: white;
+  position: absolute;
+  right: 0;
+  font-size: .9vw;
+  cursor: pointer;
+  padding: .7vw;
+}
