@@ -1,4 +1,4 @@
-import Provider, { UserSessionProvider } from '@/Provider/Provider.jsx';
+import Provider from '@/Provider/Provider.jsx';
 import ThemeProvider from './Contexts/ThemeContext/ThemeContext';
 import MessagesProvider from './Contexts/MessagesContext/MessagesContext';
 import ChildLayout from './ChildLayout';
@@ -25,13 +25,11 @@ export default function RootLayout ( { children } ) {
               <div className='bg3'></div>
               <div className='bg4'></div>
               <div className='bg5'></div>
-              <UserSessionProvider>
-                <MessagesProvider>
-                  <ChildLayout>
-                    { children }
-                  </ChildLayout>
-                </MessagesProvider>
-              </UserSessionProvider>
+              <MessagesProvider>
+                <ChildLayout>
+                  { children }
+                </ChildLayout>
+              </MessagesProvider>
             </main>
           </ThemeProvider>
         </Provider>
