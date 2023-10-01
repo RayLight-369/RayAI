@@ -28,5 +28,12 @@
   },
   "devDependencies": {
     "encoding": "^0.1.13"
+  },
+  "browser": {
+    "tls": false,
+    "net": false,
+    "fs": false,
+    "path": false,
+    "child_process": false
   }
 }
