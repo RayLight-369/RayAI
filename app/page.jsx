@@ -9,18 +9,11 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 import styles from "./page.module.css";
 import Loading from './loading';
+import { getUser } from '@/Provider/Provider';
 
 const page = () => {
   const { data: session, status } = useSession();
-  const [ signedIn, setSignedIn ] = useState( false );
-
-  useEffect( () => {
-    if ( session?.user ) {
-      setSignedIn( true );
-    } else {
-      setSignedIn( false );
-    }
-  }, [ session ] );
+  const signedIn = getUser().then( session => session.signedIn );
 
   const [ prompt, setPrompt ] = useState( {
     value: ""
