@@ -1,8 +1,7 @@
 "use client";
-import { getCurrentSession, getUser } from '@/Provider/Provider';
+import { getUser } from '@/Provider/Provider';
 import { getData } from '@/app/Supabase/Supabase';
-import { useSession } from 'next-auth/react';
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 const MessagesContext = createContext();
 
@@ -31,7 +30,6 @@ const MessagesProvider = ( { children } ) => {
 
   // const { data: session } = useSession()
   const [ messages, setMessages ] = useState( [] );
-  const [ renderedTimes, setRenderedTimes ] = useState( 0 );
 
   useEffect( () => {
 
@@ -72,7 +70,7 @@ const MessagesProvider = ( { children } ) => {
   }, [] );
 
   return (
-    <MessagesContext.Provider value={ { messages, setMessages, renderedTimes } }>{ children }</MessagesContext.Provider>
+    <MessagesContext.Provider value={ { messages, setMessages } }>{ children }</MessagesContext.Provider>
   );
 };
 
