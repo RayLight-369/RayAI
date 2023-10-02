@@ -2,13 +2,13 @@ import { DiscussServiceClient } from "@google-ai/generativelanguage";
 import { GoogleAuth } from "google-auth-library";
 
 
-
 const API_KEY = process.env.API_KEY;
 const MODEL_NAME = "models/chat-bison-001";
 
 const client = new DiscussServiceClient( {
   authClient: new GoogleAuth().fromAPIKey( "AIzaSyA6B01DPsXtGIhUQjckCshbD1E99Edd2Tg" ),
 } );
+
 
 const MAX_RETRIES = 5;
 

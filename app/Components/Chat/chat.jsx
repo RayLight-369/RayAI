@@ -9,6 +9,8 @@ import { useTheme } from "../../Contexts/ThemeContext/ThemeContext";
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { marked } from "marked";
 import MarkdownRenderer from "../MarkdownRenderer/MarkdownRenderer";
+import { insertData } from "@/app/Supabase/Supabase";
+import { useMessages } from "@/app/Contexts/MessagesContext/MessagesContext";
 
 const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
 
@@ -16,13 +18,18 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
   const { darkMode } = useTheme();
   const [ processing, setProcessing ] = useState( false );
   const [ abortController, setAbortController ] = useState( null );
+  const [ newPrompt, setNewPrompt ] = useState( [] );
 
   const msgsRef = useRef();
 
   const send = async () => {
     if ( prompt.value.trim().length ) {
+
       setPrompt( prev => ( { ...prev, value: "" } ) );
       setMessages( prev => [ ...prev, { content: prompt.value, agent: "user" } ] );
+
+      setNewPrompt( prev => [ ...prev, prompt.value ] );
+
     }
   };
 
@@ -34,7 +41,7 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
     const SendPrompt = async ( prompts ) => {
 
       try {
-        if ( messages[ messages.length - 1 ].agent != "AI" ) {
+        if ( messages[ messages.length - 1 ].agent.toLowerCase() != "ai" ) {
 
           setProcessing( true );
 
@@ -49,8 +56,13 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
           let response = await body.json();
 
           console.log( response );
+
           if ( "answer" in response && response.answer.trim().length ) {
             setMessages( prev => [ ...prev, { content: response.answer, agent: "AI" } ] );
+            setNewPrompt( prev => [ ...prev, response.answer ] );
+
+            let currentDate = new Date();
+
           }
         }
       } catch ( e ) {
@@ -62,14 +74,49 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
     };
 
     if ( messages.length ) {
+
       console.log( messages );
       let prompts = messages.map( item => ( { content: item.content } ) );
       console.log( "prompts: ", prompts );
       SendPrompt( prompts );
       msgsRef.current.scroll( 0, msgsRef.current.scrollHeight );
+
     }
 
   }, [ messages ] );
+
+  useEffect( () => {
+    if ( newPrompt.length == 2 ) {
+
+      const sendMsg = async () => {
+        try {
+
+          let currentDate = new Date();
+
+          let body = await insertData( {
+            table: "prompts",
+            object: {
+              author: session?.user.id,
+              prompt: newPrompt,
+              created_at: `${ currentDate.getDate() }-${ currentDate.toLocaleString( 'default', { month: 'long' } ).substring( 0, 3 ) } ${ currentDate.getFullYear() }`
+            }
+          } );
+
+          console.log( body );
+
+        } catch ( e ) {
+          console.log( e );
+        } finally {
+          setNewPrompt( [] );
+        }
+      };
+
+      sendMsg();
+
+    }
+    console.log( "newPrompt: ", newPrompt );
+
+  }, [ newPrompt ] );
 
   const handleTermination = () => {
     if ( abortController ) {
@@ -85,21 +132,33 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
     }
   };
 
+  function debounce ( func, delay ) {
+    let timeoutId;
+    return function ( ...args ) {
+      clearTimeout( timeoutId );
+      timeoutId = setTimeout( () => {
+        func.apply( this, args );
+      }, delay );
+    };
+  }
+
   const handleInputChange = useCallback( ( e ) => {
     setPrompt( prev => ( { ...prev, value: e.target.value } ) );
-    let availableHeight = ( e.target.scrollHeight / window?.innerWidth ) * 100;
-    console.log( availableHeight );
+    debounce( ( e ) => {
+      let availableHeight = ( e.target.scrollHeight / window?.innerWidth ) * 100;
+      console.log( availableHeight );
 
-    let text = e.target.value;
-    let numberOfLines = text.split( "\n" ).length;
-    console.log( numberOfLines );
-    // e.target.style.height = Math.max( ( numberOfLines * 34 ), 46 ) + "px";
-    if ( numberOfLines < 4 ) {
-      e.target.style.height = Math.max( numberOfLines * 2.55, 3.45 ) + "vw";
-    }
-    if ( numberOfLines >= 4 ) {
-      e.target.style.height = Math.min( availableHeight, 9.75 ) + 'vw';
-    }
+      let text = e.target.value;
+      let numberOfLines = text.split( "\n" ).length;
+      console.log( numberOfLines );
+      // e.target.style.height = Math.max( ( numberOfLines * 34 ), 46 ) + "px";
+      if ( numberOfLines < 4 ) {
+        e.target.style.height = Math.max( numberOfLines * 2.55, 3.45 ) + "vw";
+      }
+      if ( numberOfLines >= 4 ) {
+        e.target.style.height = Math.min( availableHeight, 9.75 ) + 'vw';
+      }
+    }, 300 );
   }, [] );
 
   function handleExampleCopy ( e ) {
