@@ -9,6 +9,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { useTheme } from './Contexts/ThemeContext/ThemeContext';
+import Loading from "./loading";
 
 const ChildLayout = ( { children } ) => {
 
@@ -29,8 +30,7 @@ const ChildLayout = ( { children } ) => {
         </div>
         <div className={ styles[ "links" ] }>
           <Link href={ "/" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faMessage } />&nbsp;&nbsp;&nbsp;Chats</Link>
-          <Link href={ "/" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faMagnifyingGlass } />&nbsp;&nbsp;&nbsp;Search</Link>
-          <Link href={ "/" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faEnvelope } />&nbsp;&nbsp;&nbsp;Support</Link>
+          <Link href={ "/search" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faMagnifyingGlass } />&nbsp;&nbsp;&nbsp;Search</Link>
           <Link href={ "/settings" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faGears } />&nbsp;&nbsp;&nbsp;Settings</Link>
         </div>
         <div className={ styles[ 'build-info' ] }>
@@ -61,7 +61,7 @@ const ChildLayout = ( { children } ) => {
           ) : status != "loading" ? (
             <button onClick={ () => signIn( "google" ) } type="button"><FontAwesomeIcon className={ styles[ 'google-icon' ] } icon={ faGoogle } /><span>Continue with Google</span></button>
           ) : (
-            <p>Loading...</p>
+            <Loading />
           ) }
         </div>
       </div>

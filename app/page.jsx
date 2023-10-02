@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 import styles from "./page.module.css";
+import Loading from './loading';
 
 const page = () => {
   const { data: session, status } = useSession();
@@ -32,7 +33,7 @@ const page = () => {
       { signedIn && status != "loading" ? (
         <Chat prompt={ prompt } setPrompt={ setPrompt } messages={ messages } setMessages={ setMessages } />
       ) : status == "loading" ? (
-        <p>Loading...</p>
+        <Loading />
       ) : (
         <button className={ styles[ 'google-btn' ] } onClick={ () => signIn( "google" ) } type="button"><FontAwesomeIcon className={ styles[ 'google-icon' ] } icon={ faGoogle } /><span>Continue with Google</span></button >
       ) }

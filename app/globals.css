@@ -61,15 +61,6 @@
   --center-light: #aaf0ff;
   --top-right-light: #c1c3ff;
   --bottom-right-light: #aaf1ff;
-
-  --input-bg-light: rgba(255, 255, 255);
-  --border-color-light: rgba(255, 255);
-  --note-p-color-light: rgba(255, 255, 255);
-  --links-color-light: rgba();
-  --exmaple-bg-light: rgba(255, 255, 255);
-  --example-border-light: none;
-  --example-title-color-light: rgba(255, 255, 255);
-  --example-p-color-light: rgba(255, 255, 255);
 }
 
 body {
@@ -103,7 +94,7 @@ body.lightMode {
 }
 
 div.bg1 {
-  position: absolute;
+  position: fixed;
   background: var(--top-left);
   width: 35.625vw;
   height: 77.19005vh;
@@ -116,7 +107,7 @@ div.bg1 {
 }
 
 div.bg2 {
-  position: absolute;
+  position: fixed;
   background: var(--mid-left);
   width: 35.625vw;
   height: 77.01675vh;
@@ -130,7 +121,7 @@ div.bg2 {
 }
 
 div.bg3 {
-  position: absolute;
+  position: fixed;
   background: var(--center);
   width: 29.1vw;
   height: 66.4765vh;
@@ -144,7 +135,7 @@ div.bg3 {
 }
 
 div.bg4 {
-  position: absolute;
+  position: fixed;
   background: var(--top-right);
   width: 51.6vw;
   height: 66.4765vh;
@@ -158,7 +149,7 @@ div.bg4 {
 }
 
 div.bg5 {
-  position: absolute;
+  position: fixed;
   background: var(--bottom-right);
   width: 51.6vw;
   height: 66.4765vh;

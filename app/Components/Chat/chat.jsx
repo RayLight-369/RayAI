@@ -7,10 +7,12 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useTheme } from "../../Contexts/ThemeContext/ThemeContext";
 import { memo, useCallback, useEffect, useRef, useState } from "react";
-import { marked } from "marked";
-import MarkdownRenderer from "../MarkdownRenderer/MarkdownRenderer";
 import { insertData } from "@/app/Supabase/Supabase";
-import { useMessages } from "@/app/Contexts/MessagesContext/MessagesContext";
+import { v4 as uuid } from "uuid";
+
+import Message from "../Message/Message";
+import { useRouter, usePathname, useParams } from "next/navigation";
+
 
 const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
 
@@ -19,16 +21,39 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
   const [ processing, setProcessing ] = useState( false );
   const [ abortController, setAbortController ] = useState( null );
   const [ newPrompt, setNewPrompt ] = useState( [] );
+  const [ pageRendered, setPageRendered ] = useState( false );
+  const [ hash, setHash ] = useState( "" );
+
+  useEffect( () => {
+    if ( typeof window !== "undefined" ) {
+      setHash( window.location.hash.slice( 1 ) );
+    }
+  }, [] );
 
   const msgsRef = useRef();
+
+  const scrollToMessage = () => {
+    const messageElement = document.getElementById( hash );
+
+    if ( messageElement ) {
+      messageElement.scrollIntoView( { behavior: 'smooth' } );
+    }
+  };
+
+  useEffect( () => {
+    console.log( hash );
+    if ( hash.trim().length ) scrollToMessage();
+  }, [ hash, pageRendered ] );
 
   const send = async () => {
     if ( prompt.value.trim().length ) {
 
-      setPrompt( prev => ( { ...prev, value: "" } ) );
-      setMessages( prev => [ ...prev, { content: prompt.value, agent: "user" } ] );
+      let key = uuid();
 
-      setNewPrompt( prev => [ ...prev, prompt.value ] );
+      setPrompt( prev => ( { ...prev, value: "" } ) );
+      setMessages( prev => [ ...prev, { content: prompt.value, agent: "user", key } ] );
+
+      setNewPrompt( prev => [ ...prev, { value: prompt.value, key } ] );
 
     }
   };
@@ -58,10 +83,11 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
           console.log( response );
 
           if ( "answer" in response && response.answer.trim().length ) {
-            setMessages( prev => [ ...prev, { content: response.answer, agent: "AI" } ] );
-            setNewPrompt( prev => [ ...prev, response.answer ] );
 
-            let currentDate = new Date();
+            let key = uuid();
+
+            setMessages( prev => [ ...prev, { content: response.answer, agent: "AI", key } ] );
+            setNewPrompt( prev => [ ...prev, { value: response.answer, key } ] );
 
           }
         }
@@ -75,11 +101,19 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
 
     if ( messages.length ) {
 
-      console.log( messages );
+      let isNearBottom = msgsRef.current.scrollHeight - msgsRef.current.clientHeight - msgsRef.current.scrollTop <= 250;
       let prompts = messages.map( item => ( { content: item.content } ) );
-      console.log( "prompts: ", prompts );
       SendPrompt( prompts );
-      msgsRef.current.scroll( 0, msgsRef.current.scrollHeight );
+
+      if ( isNearBottom ) {
+        msgsRef.current.scroll( 0, msgsRef.current.scrollHeight );
+      }
+
+      if ( !pageRendered ) {
+        msgsRef.current.scroll( 0, msgsRef.current.scrollHeight );
+      }
+
+      setPageRendered( true );
 
     }
 
@@ -122,6 +156,7 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
     if ( abortController ) {
       abortController.abort();
       setProcessing( false );
+      setNewPrompt( [] );
     }
   };
 
@@ -213,21 +248,7 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
       <div className={ `${ styles[ "msgs" ] } ${ !darkMode ? styles[ "light" ] : "" }` } ref={ msgsRef }>
 
         { messages.map( ( msg, key ) => (
-          <div key={ key } className={ msg.agent == "user" ? styles[ "user" ] : styles[ "ai" ] }
-            style={ {
-              animation: "msg ease-in-out 2s 1"
-            } }>
-            <Image
-              src={ msg.agent.toLowerCase() != "user" ? "/RayAI.png" : session?.user.image }
-              alt='img'
-              width={ 50 }
-              height={ 50 }
-              className={ styles[ 'text-pic' ] }
-            />
-            {/* <p key={ key } className={ styles[ "msg" ] }>{ marked( msg.content ) }</p> */ }
-            <MarkdownRenderer text={ msg.content } optionsClassName={ styles[ "code-options" ] } className={ styles[ "markdown-content" ] } />
-
-          </div>
+          <Message key={ key } msg={ msg } session={ session } styles={ styles } />
         ) ) }
       </div>
       <button onClick={ handleTermination } className={ `${ styles[ "terminate" ] } ${ processing ? styles[ "processing" ] : "" }` }>Terminate...</button>

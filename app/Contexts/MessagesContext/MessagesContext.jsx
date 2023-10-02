@@ -13,8 +13,8 @@ export const useMessages = () => {
 function convertArray ( inputArray ) {
   const outputArray = new Array( inputArray.length * 2 );
   for ( let i = 0, j = 0; i < inputArray.length; i++ ) {
-    outputArray[ j++ ] = { content: inputArray[ i ][ 0 ], agent: "user" };
-    outputArray[ j++ ] = { content: inputArray[ i ][ 1 ], agent: "ai" };
+    outputArray[ j++ ] = { content: inputArray[ i ][ 0 ].value, agent: "user", key: inputArray[ i ][ 0 ].key };
+    outputArray[ j++ ] = { content: inputArray[ i ][ 1 ].value, agent: "ai", key: inputArray[ i ][ 1 ].key };
   }
   return outputArray;
 }
