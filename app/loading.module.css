@@ -1,0 +1,20 @@
+div.loading {
+  border-radius: 50%;
+  background: transparent;
+  border: .5vw solid #6464d1;
+  width: 2.5vw;
+  height: 2.5vw;
+  animation: loader infinite ease-in-out 1s;
+  transform: rotate(0);
+  border-top-color: #2d2d85;
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
