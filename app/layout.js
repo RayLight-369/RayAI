@@ -8,9 +8,7 @@ import "./globals.css";
 export const metadata = {
   title: 'RayAI',
   description: 'RayAI: Your Personal AI',
-  // icons: {
-  //   icon: "favicon.ico"
-  // }
+
 };
 
 export default function RootLayout ( { children } ) {

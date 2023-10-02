@@ -39,7 +39,7 @@ const ChildLayout = ( { children } ) => {
             <p className='build-version'>O.O.1</p>
           </div>
           <p className={ styles[ 'desc' ] }>Be the first to try.</p>
-          <button type='button' className={ `${ styles[ 'card-btn' ] } ${ styles[ 'light' ] }` }>See Info</button>
+          <button type='button' className={ `${ styles[ 'card-btn' ] } ${ styles[ 'light' ] }` }>Start Chatting</button>
         </div>
         <div className={ styles[ 'account' ] }>
           { session?.user && status != "loading" ? (

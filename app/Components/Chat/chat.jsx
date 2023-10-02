@@ -11,7 +11,6 @@ import { insertData } from "@/app/Supabase/Supabase";
 import { v4 as uuid } from "uuid";
 
 import Message from "../Message/Message";
-import { useRouter, usePathname, useParams } from "next/navigation";
 
 
 const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
@@ -41,7 +40,7 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
   };
 
   useEffect( () => {
-    console.log( hash );
+
     if ( hash.trim().length ) scrollToMessage();
   }, [ hash, pageRendered ] );
 
@@ -80,7 +79,7 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
 
           let response = await body.json();
 
-          console.log( response );
+
 
           if ( "answer" in response && response.answer.trim().length ) {
 
@@ -136,7 +135,7 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
             }
           } );
 
-          console.log( body );
+
 
         } catch ( e ) {
           console.log( e );
@@ -148,7 +147,7 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
       sendMsg();
 
     }
-    console.log( "newPrompt: ", newPrompt );
+
 
   }, [ newPrompt ] );
 
@@ -167,7 +166,7 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
     }
   };
 
-  function debounce ( func, delay ) {
+  const debounce = ( func, delay ) => {
     let timeoutId;
     return function ( ...args ) {
       clearTimeout( timeoutId );
@@ -175,17 +174,17 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
         func.apply( this, args );
       }, delay );
     };
-  }
+  };
 
   const handleInputChange = useCallback( ( e ) => {
     setPrompt( prev => ( { ...prev, value: e.target.value } ) );
     debounce( ( e ) => {
       let availableHeight = ( e.target.scrollHeight / window?.innerWidth ) * 100;
-      console.log( availableHeight );
+
 
       let text = e.target.value;
       let numberOfLines = text.split( "\n" ).length;
-      console.log( numberOfLines );
+
       // e.target.style.height = Math.max( ( numberOfLines * 34 ), 46 ) + "px";
       if ( numberOfLines < 4 ) {
         e.target.style.height = Math.max( numberOfLines * 2.55, 3.45 ) + "vw";
