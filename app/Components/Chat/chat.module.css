@@ -310,9 +310,9 @@ div.ai {
   div.msgs {
     /* background: #000; */
     width: 100%;
-    height: calc(100% - 125px);
+    height: calc(100% - 156px);
     position: relative;
-    top: 5px;
+    top: 20px;
     /* Updated from 7.5vw to 15.5vh */
     overflow: auto;
     display: flex;
@@ -329,7 +329,7 @@ div.ai {
     display: flex;
     position: relative;
     margin-bottom: 0;
-    top: 44px;
+    top: 55px;
     /* Updated from 4.2vw to 8.7vh */
     height: fit-content;
     width: 80%;
@@ -433,12 +433,12 @@ div.ai {
   }
 
   button.terminate.processing {
-    bottom: 64px;
+    bottom: 80px;
   }
 
   p.note {
     position: absolute;
-    bottom: 9px;
+    bottom: 22px;
     /* Updated from 1.8vw to 3.72vh */
     font-size: 6px;
     width: 85%;
