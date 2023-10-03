@@ -10,15 +10,44 @@ import Link from 'next/link';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { useTheme } from './Contexts/ThemeContext/ThemeContext';
 import Loading from "./loading";
+import { isMobileDevice, toggleNavDevice } from "./Contexts/IsMobileContext/IsMobileContext";
+import { useEffect } from "react";
 
 const ChildLayout = ( { children } ) => {
 
   const { data: session, status } = useSession();
   const { darkMode } = useTheme();
+  const { isMobile, setIsMobile } = isMobileDevice();
+  const { toggleNav, setToggleNav } = toggleNavDevice();
+
+
+  useEffect( () => {
+
+    const handleResize = () => setIsMobile( window.innerWidth <= 767 );
+
+    handleResize();
+
+    window.addEventListener( "resize", handleResize );
+
+    return () => {
+      window.removeEventListener( "resize", handleResize );
+    };
+
+  }, [] );
 
   return (
     <div className={ styles[ "chat-container" ] }>
-      <div className={ styles[ "previous-chats" ] }>
+      <div className={ styles[ "previous-chats" ] } style={ isMobile ? {
+        left: toggleNav ? "0" : -150,
+        zIndex: 10
+      } : null }>
+        { isMobile && (
+          <button className={ styles[ "close-nav" ] } onClick={ () => {
+            setToggleNav( false );
+          } }>
+            ✖
+          </button>
+        ) }
         <div className={ styles[ "logo" ] }>
           <Image
             src={ "/logo.png" }
@@ -66,6 +95,11 @@ const ChildLayout = ( { children } ) => {
         </div>
       </div>
       <div className={ `${ styles[ "layout" ] } ${ !darkMode ? styles[ "light" ] : "" }` }>
+        { isMobile && (
+          <button className={ styles[ "open-nav" ] } onClick={ () => setToggleNav( true ) }>
+            ☰
+          </button>
+        ) }
         { children }
       </div>
     </div >
