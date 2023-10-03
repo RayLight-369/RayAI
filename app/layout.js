@@ -4,6 +4,7 @@ import MessagesProvider from './Contexts/MessagesContext/MessagesContext';
 import ChildLayout from './ChildLayout';
 
 import "./globals.css";
+import IsMobileProvider, { ToggleNavProvider } from './Contexts/IsMobileContext/IsMobileContext';
 
 export const metadata = {
   title: 'RayAI',
@@ -24,9 +25,13 @@ export default function RootLayout ( { children } ) {
               <div className='bg4'></div>
               <div className='bg5'></div>
               <MessagesProvider>
-                <ChildLayout>
-                  { children }
-                </ChildLayout>
+                <IsMobileProvider>
+                  <ToggleNavProvider>
+                    <ChildLayout>
+                      { children }
+                    </ChildLayout>
+                  </ToggleNavProvider>
+                </IsMobileProvider>
               </MessagesProvider>
             </main>
           </ThemeProvider>

@@ -198,3 +198,180 @@ div.account button {
   cursor: pointer;
   padding: .7vw;
 }
+
+@media (max-width: 767px) {
+
+  div.previous-chats {
+    /* background: #fff; */
+    height: 100%;
+    /* width: 20.5vw; */
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    /* padding: .9vw 1.45vw; */
+    padding: 5px;
+    position: absolute;
+    transition: 150ms ease-in-out;
+    background: rgb(13 36 40);
+  }
+
+  div.layout {
+    width: calc(100%);
+  }
+
+  div.previous-chats div.links {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 50px;
+    /* Updated from 5.86vw to 12.12vh */
+    gap: 2px;
+  }
+
+  .link-icons {
+    opacity: 0.4;
+  }
+
+  div.previous-chats div.links a {
+    text-decoration: none;
+    color: #eee;
+    padding: 6px;
+    font-family: abeezee;
+    font-size: 10px;
+  }
+
+  div.previous-chats div.logo {
+    display: flex;
+    position: relative;
+    top: 20px;
+    /* Updated from 1.125vw to 2.62vh */
+  }
+
+  div.previous-chats div.logo img {
+    width: 60px;
+    height: auto;
+  }
+
+  div.account {
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+    width: 120px;
+  }
+
+  div.build-info {
+    padding: 10px;
+    position: relative;
+    top: calc(50% - 30px);
+    border-radius: 6px;
+    display: flex;
+    width: 90%;
+    justify-content: center;
+    flex-direction: column;
+    gap: 7px;
+    font-family: Quicksand;
+    color: white;
+    transform: scale(1);
+    animation: card infinite 3s ease-in-out;
+    /* background: linear-gradient(108deg, #1a0044 -7.56%, #660868 29.51%, #db5e83 69.57%, #ffd098 107.24%); */
+    /* background: linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .1)), url("/card-bg.svg"); */
+    /* background: url("/card-bg-3.svg") no-repeat; */
+    background: linear-gradient(108deg, #052437 -7.56%, #14507d 29.51%, #47a2a5 69.57%, #bcf7ff 107.24%);
+    backdrop-filter: blur(50px);
+  }
+
+  div.version {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 10px;
+    font-family: abeezee;
+    font-weight: bold;
+  }
+
+  div.build-info p.desc {
+    position: relative;
+    top: -3px;
+    font-size: 9px;
+  }
+
+  div.build-info button.card-btn {
+    width: fit-content;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px 8px;
+    font-size: 7px;
+    border-radius: 2.5px;
+    border: none;
+    background: #00000049;
+    color: white;
+    cursor: pointer;
+    transition: 90ms linear;
+  }
+
+  div.build-info button.card-btn.light {
+    background: white;
+    color: rgb(34, 42, 46);
+  }
+
+  div.build-info button.card-btn:hover {
+    background: white;
+    color: rgb(34, 42, 46);
+  }
+
+  button.close-nav {
+    position: absolute;
+    right: 0;
+    border: none;
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    font-size: 12px;
+    border-radius: 50%;
+  }
+
+  button.open-nav {
+    position: relative;
+    left: calc(-50% + 12px);
+    border: none;
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    font-size: 12px;
+    border-radius: 50%;
+  }
+
+  div.profile {
+    gap: 7px;
+    width: 100%;
+  }
+
+  div.img img {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+  }
+
+  div.name-email {
+    font-size: 7px;
+    gap: 6px;
+  }
+
+  p.email {
+    font-size: 6px;
+  }
+
+  div.account button {
+    padding: 10px;
+    border-radius: 3px;
+    font-size: 12px;
+    gap: 8px;
+  }
+
+  .logout-icon {
+    font-size: 9px;
+    padding: 3px;
+  }
+
+}

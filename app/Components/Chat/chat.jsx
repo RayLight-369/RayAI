@@ -21,12 +21,16 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
   const [ abortController, setAbortController ] = useState( null );
   const [ newPrompt, setNewPrompt ] = useState( [] );
   const [ pageRendered, setPageRendered ] = useState( false );
+  const [ toggleNav, setToggleNav ] = useState( false );
   const [ hash, setHash ] = useState( "" );
+  const [ isMobile, setIsMobile ] = useState( true );
 
   useEffect( () => {
+
     if ( typeof window !== "undefined" ) {
       setHash( window.location.hash.slice( 1 ) );
     }
+
   }, [] );
 
   const msgsRef = useRef();
@@ -244,6 +248,7 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
           </div>
         </>
       ) }
+
       <div className={ `${ styles[ "msgs" ] } ${ !darkMode ? styles[ "light" ] : "" }` } ref={ msgsRef }>
 
         { messages.map( ( msg, key ) => (
