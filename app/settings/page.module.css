@@ -41,3 +41,27 @@ div.logout button {
 div.options.light div.logout button {
   background: #d40c4c;
 }
+
+@media (max-width: 768px) {
+  div.theme-changer {
+    font-size: 13px;
+    color: #a5c6c8;
+    top: 45px;
+    left: 37px;
+  }
+
+  div.logout {
+    position: relative;
+    top: 90px;
+    background: #555;
+    left: 37px;
+  }
+
+  div.logout button {
+    background: #a30f3e;
+    padding: 8px 12px;
+    color: white;
+    border: none;
+    font-size: 12px;
+  }
+}

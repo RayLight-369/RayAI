@@ -83,7 +83,7 @@ const ChildLayout = ( { children } ) => {
               </div>
               <div className={ styles[ 'name-email' ] }>
                 <p className={ styles[ "name" ] }>{ session.user.name }</p>
-                <p className={ styles[ "email" ] }>{ session.user.email }</p>
+                <p className={ styles[ "email" ] }>{ session.user.email.length > 22 ? session.user.email.substring( 0, 22 ) + "..." : session.user.email }</p>
               </div>
               <FontAwesomeIcon onClick={ () => signOut() } className={ styles[ "logout-icon" ] } icon={ faRightFromBracket } />
             </div>

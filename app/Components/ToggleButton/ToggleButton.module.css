@@ -50,3 +50,23 @@ input:checked + .slider:before {
   -ms-transform: translateX(1.4vw);
   transform: translateX(1.4vw);
 }
+
+@media (max-width: 767px) {
+  label.switch {
+    width: 35px;
+    height: 20px;
+  }
+
+  .slider:before {
+    height: 17px;
+    width: 17px;
+    left: 1px;
+    bottom: 1.5px;
+  }
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(17px);
+    -ms-transform: translateX(17px);
+    transform: translateX(17px);
+  }
+}
