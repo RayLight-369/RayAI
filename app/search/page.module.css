@@ -108,3 +108,45 @@ div.ai {
   top: 2.8vh;
   border-radius: .5vw;
 }
+
+@media (max-width: 767px) {
+  div.search-container {
+    width: calc(100% - 13px);
+    height: calc(100% - 43px);
+    gap: 30px;
+    position: absolute;
+    top: calc(50% + 20px);
+    transform: translateY(-50%);
+  }
+
+  p.placeholder {
+    font-size: 10px;
+  }
+
+  div.search-container div.input input {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 10px;
+  }
+
+  div.msgs {
+    gap: 20px;
+  }
+
+  div.user,
+  div.ai {
+    font-size: 11px;
+    border-radius: 10px;
+    padding: 10px 10px 10px 20px;
+    width: calc(100% - 20px);
+    left: 2px;
+  }
+
+  .text-pic {
+    width: 20px;
+    height: 20px;
+    left: -10px;
+    top: 10px;
+    border-radius: 5px;
+  }
+}
