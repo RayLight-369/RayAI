@@ -13,7 +13,7 @@ import styles from "./chat.module.css";
 import Message from "../Message/Message";
 
 
-const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
+const Chat = ( { messages, setMessages } ) => {
 
   const { data: session } = useSession();
   const { darkMode } = useTheme();

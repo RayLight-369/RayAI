@@ -22,16 +22,12 @@ const page = () => {
     }
   }, [ session ] );
 
-  const [ prompt, setPrompt ] = useState( {
-    value: ""
-  } );
-
   const { messages, setMessages } = useMessages();
 
   return (
     <>
       { signedIn && status != "loading" ? (
-        <Chat prompt={ prompt } setPrompt={ setPrompt } messages={ messages } setMessages={ setMessages } />
+        <Chat messages={ messages } setMessages={ setMessages } />
       ) : status == "loading" ? (
         <Loading />
       ) : (
