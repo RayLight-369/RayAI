@@ -54,14 +54,17 @@ const Chat = ( { messages, setMessages } ) => {
 
   const send = async ( e ) => {
 
-    let key = uuid();
+    if ( input.trim().length ) {
 
-    handleSubmit( e );
+      let key = uuid();
 
-    setNewPrompt( prev => [ ...prev, { value: input, key } ] );
+      handleSubmit( e );
+
+      setNewPrompt( prev => [ ...prev, { value: input, key } ] );
+
+    }
 
   };
-
 
   useEffect( () => {
     if ( msgs.length ) {
@@ -137,6 +140,7 @@ const Chat = ( { messages, setMessages } ) => {
   };
 
   const handleInputChange = useCallback( ( e ) => {
+
     inputChange( e );
     debounce( ( e ) => {
       let availableHeight = ( e.target.scrollHeight / window?.innerWidth ) * 100;

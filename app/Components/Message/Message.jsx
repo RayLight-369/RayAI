@@ -20,7 +20,7 @@ const Message = ( { msg, session, styles, onClick = () => { }, id } ) => {
         height={ 50 }
         className={ styles[ 'text-pic' ] }
       />
-
+      {/* <p key={ key } className={ styles[ "msg" ] }>{ marked( msg.content ) }</p> */ }
       <MarkdownRenderer text={ msg.content } optionsClassName={ styles[ "code-options" ] } className={ styles[ "markdown-content" ] } />
 
     </div>
