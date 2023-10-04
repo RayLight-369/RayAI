@@ -54,11 +54,15 @@ const Chat = ( { messages, setMessages } ) => {
 
   const send = async ( e ) => {
 
-    let key = uuid();
+    if ( input.trim().length ) {
 
-    handleSubmit( e );
+      let key = uuid();
 
-    setNewPrompt( prev => [ ...prev, { value: input, key } ] );
+      handleSubmit( e );
+
+      setNewPrompt( prev => [ ...prev, { value: input, key } ] );
+
+    }
 
   };
 
