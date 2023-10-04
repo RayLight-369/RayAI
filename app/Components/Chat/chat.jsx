@@ -9,8 +9,9 @@ import { useTheme } from "../../Contexts/ThemeContext/ThemeContext";
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { insertData } from "@/app/Supabase/Supabase";
 import { v4 as uuid } from "uuid";
-
+import { useChat } from "ai/react";
 import Message from "../Message/Message";
+import MarkdownRenderer from "../MarkdownRenderer/MarkdownRenderer";
 
 
 const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
@@ -21,9 +22,14 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
   const [ abortController, setAbortController ] = useState( null );
   const [ newPrompt, setNewPrompt ] = useState( [] );
   const [ pageRendered, setPageRendered ] = useState( false );
-  const [ toggleNav, setToggleNav ] = useState( false );
   const [ hash, setHash ] = useState( "" );
-  const [ isMobile, setIsMobile ] = useState( true );
+  const { messages: msgs, input, handleInputChange: inputChange, handleSubmit, stop, isLoading } = useChat( {
+    id: "_RAY_AI_CHAT_",
+    initialMessages: messages,
+    onFinish: ( msg ) => {
+      setNewPrompt( prev => [ ...prev, { value: msg.content, key: msg.id } ] );
+    }
+  } );
 
   useEffect( () => {
 
@@ -46,84 +52,112 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
   useEffect( () => {
 
     if ( hash.trim().length ) scrollToMessage();
+
   }, [ hash, pageRendered ] );
 
-  const send = async () => {
-    if ( prompt.value.trim().length ) {
+  const send = async ( e ) => {
+    // if ( prompt.value.trim().length ) {
 
-      let key = uuid();
+    let key = uuid();
 
-      setPrompt( prev => ( { ...prev, value: "" } ) );
-      setMessages( prev => [ ...prev, { content: prompt.value, agent: "user", key } ] );
+    // setPrompt( prev => ( { ...prev, value: "" } ) );
+    // setMessages( prev => [ ...prev, { content: prompt.value, agent: "user", key } ] );
 
-      setNewPrompt( prev => [ ...prev, { value: prompt.value, key } ] );
+    handleSubmit( e );
 
-    }
+    setNewPrompt( prev => [ ...prev, { value: input, key } ] );
+
+    // }
   };
 
+  // useEffect( () => {
+
+  //   const controller = new AbortController();
+  //   setAbortController( controller );
+
+  //   const SendPrompt = async ( prompts ) => {
+
+  //     try {
+  //       if ( messages[ messages.length - 1 ].agent.toLowerCase() != "ai" ) {
+
+  //         setProcessing( true );
+
+  //         const body = await fetch( "/api/bard", {
+  //           method: "POST",
+  //           body: JSON.stringify( {
+  //             messages: prompts
+  //           } ),
+  //           signal: controller.signal
+  //         } );
+
+  //         let response = await body.json();
+
+
+
+  //         if ( "answer" in response && response.answer.trim().length ) {
+
+  //           let key = uuid();
+
+  //           setMessages( prev => [ ...prev, { content: response.answer, role: "assistant", key } ] );
+  //           setNewPrompt( prev => [ ...prev, { value: response.answer, key } ] );
+
+  //         }
+  //       }
+  //     } catch ( e ) {
+  //       console.log( e );
+  //     } finally {
+  //       setProcessing( false );
+  //     }
+
+  //   };
+
+  //   if ( messages.length ) {
+
+  //     let isNearBottom = msgsRef.current.scrollHeight - msgsRef.current.clientHeight - msgsRef.current.scrollTop <= 250;
+  //     let prompts = messages.map( item => ( { content: item.content } ) );
+  //     SendPrompt( prompts );
+
+  //     if ( isNearBottom ) {
+  //       msgsRef.current.scroll( 0, msgsRef.current.scrollHeight );
+  //     }
+
+  //     if ( !pageRendered ) {
+  //       msgsRef.current.scroll( 0, msgsRef.current.scrollHeight );
+  //     }
+
+  //     setPageRendered( true );
+
+  //   }
+
+  // }, [ messages ] );
+
   useEffect( () => {
+    if ( msgs.length ) {
 
-    const controller = new AbortController();
-    setAbortController( controller );
+      // let isNearBottom = msgsRef.current.scrollHeight - msgsRef.current.clientHeight - msgsRef.current.scrollTop <= 250;
 
-    const SendPrompt = async ( prompts ) => {
-
-      try {
-        if ( messages[ messages.length - 1 ].agent.toLowerCase() != "ai" ) {
-
-          setProcessing( true );
-
-          const body = await fetch( "/api/bard", {
-            method: "POST",
-            body: JSON.stringify( {
-              messages: prompts
-            } ),
-            signal: controller.signal
-          } );
-
-          let response = await body.json();
-
-
-
-          if ( "answer" in response && response.answer.trim().length ) {
-
-            let key = uuid();
-
-            setMessages( prev => [ ...prev, { content: response.answer, agent: "AI", key } ] );
-            setNewPrompt( prev => [ ...prev, { value: response.answer, key } ] );
-
-          }
-        }
-      } catch ( e ) {
-        console.log( e );
-      } finally {
-        setProcessing( false );
-      }
-
-    };
-
-    if ( messages.length ) {
-
-      let isNearBottom = msgsRef.current.scrollHeight - msgsRef.current.clientHeight - msgsRef.current.scrollTop <= 250;
-      let prompts = messages.map( item => ( { content: item.content } ) );
-      SendPrompt( prompts );
-
-      if ( isNearBottom ) {
-        msgsRef.current.scroll( 0, msgsRef.current.scrollHeight );
-      }
+      // if ( isNearBottom ) {
+      //   msgsRef.current.scroll( 0, msgsRef.current.scrollHeight );
+      // }
 
       if ( !pageRendered ) {
         msgsRef.current.scroll( 0, msgsRef.current.scrollHeight );
       }
 
       setPageRendered( true );
-
     }
-
-  }, [ messages ] );
+  }, [ msgs ] );
 
   useEffect( () => {
+
+    console.log( "useffectt newPromp: ", newPrompt );
+
     if ( newPrompt.length == 2 ) {
+
+      setMessages( prev => [ ...prev,
+      { content: newPrompt[ 0 ].value, role: "user", key: newPrompt[ 0 ].key },
+      { content: newPrompt[ 1 ].value, role: "assistant", key: newPrompt[ 1 ].key }
+      ] );
 
       const sendMsg = async () => {
         try {
@@ -138,8 +172,6 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
               created_at: `${ currentDate.getDate() }-${ currentDate.toLocaleString( 'default', { month: 'long' } ).substring( 0, 3 ) } ${ currentDate.getFullYear() }`
             }
           } );
-
-
 
         } catch ( e ) {
           console.log( e );
@@ -156,17 +188,18 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
   }, [ newPrompt ] );
 
   const handleTermination = () => {
-    if ( abortController ) {
-      abortController.abort();
-      setProcessing( false );
-      setNewPrompt( [] );
-    }
+    // if ( abortController ) {
+    // abortController.abort();
+    setProcessing( false );
+    stop();
+    setNewPrompt( [] );
+    // }
   };
 
-  const handleSubmit = e => {
+  const handleInputSubmit = e => {
     if ( e.key == "Enter" && !e.shiftKey ) {
       e.preventDefault();
-      send();
+      send( e );
     }
   };
 
@@ -181,7 +214,8 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
   };
 
   const handleInputChange = useCallback( ( e ) => {
-    setPrompt( prev => ( { ...prev, value: e.target.value } ) );
+    // setPrompt( prev => ( { ...prev, value: e.target.value } ) );
+    inputChange( e );
     debounce( ( e ) => {
       let availableHeight = ( e.target.scrollHeight / window?.innerWidth ) * 100;
 
@@ -251,13 +285,17 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
 
       <div className={ `${ styles[ "msgs" ] } ${ !darkMode ? styles[ "light" ] : "" }` } ref={ msgsRef }>
 
-        { messages.map( ( msg, key ) => (
+        {/* { messages.map( ( msg, key ) => (
           <Message key={ key } msg={ msg } session={ session } styles={ styles } />
+        ) ) } */}
+
+        { msgs.map( ( m, i ) => (
+          <Message id={ m.key } msg={ m } session={ session } key={ i } styles={ styles } />
         ) ) }
       </div>
-      <button onClick={ handleTermination } className={ `${ styles[ "terminate" ] } ${ processing ? styles[ "processing" ] : "" }` }>Terminate...</button>
+      <button onClick={ handleTermination } className={ `${ styles[ "terminate" ] } ${ isLoading ? styles[ "processing" ] : "" }` }>Terminate...</button>
       <div className={ `${ styles[ "input" ] } ${ !darkMode ? styles[ "light" ] : "" }` }>
-        <textarea onKeyDown={ handleSubmit } rows={ 1 } type="text" placeholder='Enter Prompt' onInput={ handleInputChange } value={ prompt.value } />
+        <textarea onKeyDown={ handleInputSubmit } rows={ 1 } type="text" placeholder='Enter Prompt' onInput={ handleInputChange } value={ input } />
         <button type='button' onClick={ send }>
           <FontAwesomeIcon icon={ faPaperPlane } />
         </button>

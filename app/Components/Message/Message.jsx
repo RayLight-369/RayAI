@@ -3,18 +3,18 @@ import MarkdownRenderer from '../MarkdownRenderer/MarkdownRenderer';
 import Image from 'next/image';
 
 
-const Message = ( { msg, session, styles, onClick = () => { } } ) => {
+const Message = ( { msg, session, styles, onClick = () => { }, id } ) => {
 
   return (
-    <div className={ msg.agent == "user" ? styles[ "user" ] : styles[ "ai" ] }
+    <div className={ msg.role == "user" ? styles[ "user" ] : styles[ "ai" ] }
       style={ {
         animation: "msg ease-in-out 2s 1"
       } }
-      id={ msg.key }
+      id={ id || msg.key }
       onClick={ onClick }
     >
       <Image
-        src={ msg.agent.toLowerCase() != "user" ? "/RayAI.png" : session?.user.image }
+        src={ msg.role.toLowerCase() != "user" ? "/RayAI.png" : session?.user.image }
         alt='img'
         width={ 50 }
         height={ 50 }

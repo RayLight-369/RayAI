@@ -2,9 +2,9 @@ import Provider from '@/Provider/Provider.jsx';
 import ThemeProvider from './Contexts/ThemeContext/ThemeContext';
 import MessagesProvider from './Contexts/MessagesContext/MessagesContext';
 import ChildLayout from './ChildLayout';
+import IsMobileProvider, { ToggleNavProvider } from './Contexts/IsMobileContext/IsMobileContext';
 
 import "./globals.css";
-import IsMobileProvider, { ToggleNavProvider } from './Contexts/IsMobileContext/IsMobileContext';
 
 export const metadata = {
   title: 'RayAI',
