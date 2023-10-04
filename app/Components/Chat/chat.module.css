@@ -127,11 +127,13 @@ button.terminate {
   cursor: pointer;
   border-radius: .4vw;
   color: white;
+  opacity: 0;
   background: linear-gradient(108deg, #052437 -7.56%, #14507d 29.51%, #47a2a5 69.57%, #bcf7ff 107.24%);
 }
 
 button.terminate.processing {
   bottom: 11vw;
+  opacity: 1;
 }
 
 button.terminate:hover {
@@ -429,11 +431,13 @@ div.ai {
     color: white;
     border: 2px solid;
     background: none;
+    opacity: 0;
     border-image: linear-gradient(108deg, #052437 -7.56%, #14507d 29.51%, #47a2a5 69.57%, #bcf7ff 107.24%) 1;
   }
 
   button.terminate.processing {
     bottom: 80px;
+    opacity: 1;
   }
 
   p.note {
