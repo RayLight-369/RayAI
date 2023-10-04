@@ -7,11 +7,12 @@ import Message from '../Components/Message/Message';
 import { useTheme } from '../Contexts/ThemeContext/ThemeContext';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { useChat } from 'ai/react';
 
 
 const Search = () => {
 
-  const { messages, setMessages } = useMessages();
+  const { messages } = useMessages();
   const { darkMode, _ } = useTheme();
   const { data: session } = useSession();
   const [ prompts, setPrompts ] = useState( [] );
@@ -19,6 +20,7 @@ const Search = () => {
   const msgsRef = useRef();
 
   const handleInputChange = ( e ) => {
+    console.log( messages );
     let filteredMessages = messages.filter( ( message ) => message.content.toLowerCase().includes( e.target.value.toLowerCase() ) );
     setPrompts( [ ...filteredMessages ] );
 
