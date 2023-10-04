@@ -246,7 +246,7 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
 
   return (
     <>
-      { !messages.length && (
+      { !msgs.length && (
         <>
           <Image
             src={ darkMode ? "/logo.png" : "/logo-dark.png" }
