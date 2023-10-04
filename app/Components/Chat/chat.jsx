@@ -54,7 +54,7 @@ const Chat = ( { messages, setMessages } ) => {
 
   const send = async ( e ) => {
 
-    if ( input.trim().length ) {
+    if ( input.trim().length && !isLoading ) {
 
       let key = uuid();
 
