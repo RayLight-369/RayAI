@@ -1,25 +1,22 @@
 "use client";
 
-import styles from "./chat.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBarsStaggered, faPaperPlane, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { useSession } from 'next-auth/react';
-import Image from 'next/image';
+import { useChat } from "ai/react";
 import { useTheme } from "../../Contexts/ThemeContext/ThemeContext";
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { insertData } from "@/app/Supabase/Supabase";
 import { v4 as uuid } from "uuid";
-import { useChat } from "ai/react";
+import Image from 'next/image';
+import styles from "./chat.module.css";
 import Message from "../Message/Message";
-import MarkdownRenderer from "../MarkdownRenderer/MarkdownRenderer";
 
 
 const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
 
   const { data: session } = useSession();
   const { darkMode } = useTheme();
-  const [ processing, setProcessing ] = useState( false );
-  const [ abortController, setAbortController ] = useState( null );
   const [ newPrompt, setNewPrompt ] = useState( [] );
   const [ pageRendered, setPageRendered ] = useState( false );
   const [ hash, setHash ] = useState( "" );
@@ -56,89 +53,17 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
   }, [ hash, pageRendered ] );
 
   const send = async ( e ) => {
-    // if ( prompt.value.trim().length ) {
 
     let key = uuid();
-
-    // setPrompt( prev => ( { ...prev, value: "" } ) );
-    // setMessages( prev => [ ...prev, { content: prompt.value, agent: "user", key } ] );
 
     handleSubmit( e );
 
     setNewPrompt( prev => [ ...prev, { value: input, key } ] );
 
-    // }
   };
-
-  // useEffect( () => {
-
-  //   const controller = new AbortController();
-  //   setAbortController( controller );
-
-  //   const SendPrompt = async ( prompts ) => {
-
-  //     try {
-  //       if ( messages[ messages.length - 1 ].agent.toLowerCase() != "ai" ) {
-
-  //         setProcessing( true );
-
-  //         const body = await fetch( "/api/bard", {
-  //           method: "POST",
-  //           body: JSON.stringify( {
-  //             messages: prompts
-  //           } ),
-  //           signal: controller.signal
-  //         } );
-
-  //         let response = await body.json();
-
-
-
-  //         if ( "answer" in response && response.answer.trim().length ) {
-
-  //           let key = uuid();
-
-  //           setMessages( prev => [ ...prev, { content: response.answer, role: "assistant", key } ] );
-  //           setNewPrompt( prev => [ ...prev, { value: response.answer, key } ] );
-
-  //         }
-  //       }
-  //     } catch ( e ) {
-  //       console.log( e );
-  //     } finally {
-  //       setProcessing( false );
-  //     }
-
-  //   };
-
-  //   if ( messages.length ) {
-
-  //     let isNearBottom = msgsRef.current.scrollHeight - msgsRef.current.clientHeight - msgsRef.current.scrollTop <= 250;
-  //     let prompts = messages.map( item => ( { content: item.content } ) );
-  //     SendPrompt( prompts );
-
-  //     if ( isNearBottom ) {
-  //       msgsRef.current.scroll( 0, msgsRef.current.scrollHeight );
-  //     }
-
-  //     if ( !pageRendered ) {
-  //       msgsRef.current.scroll( 0, msgsRef.current.scrollHeight );
-  //     }
-
-  //     setPageRendered( true );
-
-  //   }
-
-  // }, [ messages ] );
 
   useEffect( () => {
     if ( msgs.length ) {
-
-      // let isNearBottom = msgsRef.current.scrollHeight - msgsRef.current.clientHeight - msgsRef.current.scrollTop <= 250;
-
-      // if ( isNearBottom ) {
-      //   msgsRef.current.scroll( 0, msgsRef.current.scrollHeight );
-      // }
 
       if ( !pageRendered ) {
         msgsRef.current.scroll( 0, msgsRef.current.scrollHeight );
@@ -188,12 +113,9 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
   }, [ newPrompt ] );
 
   const handleTermination = () => {
-    // if ( abortController ) {
-    // abortController.abort();
     setProcessing( false );
     stop();
     setNewPrompt( [] );
-    // }
   };
 
   const handleInputSubmit = e => {
@@ -214,7 +136,7 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
   };
 
   const handleInputChange = useCallback( ( e ) => {
-    // setPrompt( prev => ( { ...prev, value: e.target.value } ) );
+
     inputChange( e );
     debounce( ( e ) => {
       let availableHeight = ( e.target.scrollHeight / window?.innerWidth ) * 100;
@@ -223,7 +145,6 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
       let text = e.target.value;
       let numberOfLines = text.split( "\n" ).length;
 
-      // e.target.style.height = Math.max( ( numberOfLines * 34 ), 46 ) + "px";
       if ( numberOfLines < 4 ) {
         e.target.style.height = Math.max( numberOfLines * 2.55, 3.45 ) + "vw";
       }
@@ -284,11 +205,6 @@ const Chat = ( { prompt, setPrompt, messages, setMessages } ) => {
       ) }
 
       <div className={ `${ styles[ "msgs" ] } ${ !darkMode ? styles[ "light" ] : "" }` } ref={ msgsRef }>
-
-        {/* { messages.map( ( msg, key ) => (
-          <Message key={ key } msg={ msg } session={ session } styles={ styles } />
-        ) ) } */}
-
         { msgs.map( ( m, i ) => (
           <Message id={ m.key } msg={ m } session={ session } key={ i } styles={ styles } />
         ) ) }
