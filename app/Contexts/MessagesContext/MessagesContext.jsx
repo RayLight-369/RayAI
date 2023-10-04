@@ -28,7 +28,6 @@ function convertArray ( inputArray ) {
 
 const MessagesProvider = ( { children } ) => {
 
-  // const { data: session } = useSession()
   const [ messages, setMessages ] = useState( [] );
 
   useEffect( () => {
