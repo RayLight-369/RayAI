@@ -38,7 +38,6 @@ export async function POST ( req ) {
 
   const { messages } = await req.json();
 
-
   const response = await Hf.textGenerationStream( {
     model: 'OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5',
     inputs: experimental_buildOpenAssistantPrompt( messages ),

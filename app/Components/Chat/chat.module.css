@@ -36,7 +36,7 @@ div.msgs {
   display: flex;
   flex-direction: column;
   position: relative;
-  align-items: center;
+  /* align-items: center; */
   gap: 3.1vh;
   padding: 1.5vw 1.5vw 6vw 1.5vw;
   scroll-behavior: smooth;
@@ -272,21 +272,51 @@ div.markdown-content * {
   line-height: 1.7;
 }
 
+div.ai .text-pic,
+div.user .text-pic {
+  width: 2.7vw;
+  height: 2.7vw;
+  position: absolute;
+  top: 2.8vh;
+  border-radius: .5vw;
+}
+
+div.ai .text-pic {
+  left: -1vw;
+}
+
+div.user .text-pic {
+  left: calc(100% - 1.8vw);
+}
+
 div.user,
 div.ai {
   font-family: abeezee;
   font-size: 1vw;
   background: #5656563c;
   border-radius: 1.4vw;
-  padding: 2vw 2vw 2vw 3vw;
+  max-width: 55%;
   border: #365057 1px solid;
   display: flex;
   color: #bebebe;
   flex-direction: row;
-  width: calc(100% - 1.8vw);
+  /* width: calc(100% - 1.8vw); */
+  width: fit-content;
   position: relative;
-  left: .5vw;
   transition: 200ms ease-in-out;
+}
+
+div.ai {
+  left: .8vw;
+  padding: 2vw 2vw 2vw 3vw;
+}
+
+div.user {
+  position: relative;
+  /* setting the left property in Message.jsx (from js) */
+  padding: 2vw 3vw 2vw 2vw;
+  opacity: 0;
+  transition: 150ms ease-in-out;
 }
 
 @keyframes msg {
@@ -297,15 +327,6 @@ div.ai {
   100% {
     height: auto;
   }
-}
-
-.text-pic {
-  width: 2.7vw;
-  height: 2.7vw;
-  position: absolute;
-  left: -1vw;
-  top: 2.8vh;
-  border-radius: .5vw;
 }
 
 @media (max-width: 768px) {
