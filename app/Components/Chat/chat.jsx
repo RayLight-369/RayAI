@@ -117,7 +117,6 @@ const Chat = ( { messages, setMessages } ) => {
   }, [ newPrompt ] );
 
   const handleTermination = () => {
-    // setProcessing( false );
     stop();
     setNewPrompt( [] );
   };
