@@ -54,7 +54,7 @@ const Chat = ( { messages, setMessages } ) => {
 
   const send = async ( e ) => {
 
-    if ( input.trim().length ) {
+    if ( input.trim().length && !isLoading ) {
 
       let key = uuid();
 
@@ -123,7 +123,7 @@ const Chat = ( { messages, setMessages } ) => {
   };
 
   const handleInputSubmit = e => {
-    if ( e.key == "Enter" && !e.shiftKey ) {
+    if ( e.key == "Enter" && !e.shiftKey && !isLoading ) {
       e.preventDefault();
       send( e );
     }
@@ -216,7 +216,7 @@ const Chat = ( { messages, setMessages } ) => {
       <button onClick={ handleTermination } className={ `${ styles[ "terminate" ] } ${ isLoading ? styles[ "processing" ] : "" }` }>Terminate...</button>
       <div className={ `${ styles[ "input" ] } ${ !darkMode ? styles[ "light" ] : "" }` }>
         <textarea onKeyDown={ handleInputSubmit } rows={ 1 } type="text" placeholder='Enter Prompt' onInput={ handleInputChange } value={ input } />
-        <button type='button' onClick={ send }>
+        <button type='button' onClick={ send } disabled={ isLoading }>
           <FontAwesomeIcon icon={ faPaperPlane } />
         </button>
       </div>
