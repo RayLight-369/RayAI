@@ -97,12 +97,14 @@ const Chat = ( { messages, setMessages } ) => {
 
       msgsRef.current.scrollTo( {
         top: msgsRef.current.scrollHeight,
-        behavior: "smooth"
+        // behavior: "smooth"
       } );
+
+      // msgsRef.current.scrollIntoView( { behavior: 'smooth', block: 'end' } );
 
     }
 
-  }, 800 );
+  }, 1000 );
 
   useEffect( () => {
     if ( msgs.length ) {
@@ -133,7 +135,7 @@ const Chat = ( { messages, setMessages } ) => {
 
           let currentDate = new Date();
 
-          let body = await insertData( {
+          await insertData( {
             table: "prompts",
             object: {
               author: session?.user.id,
@@ -163,29 +165,69 @@ const Chat = ( { messages, setMessages } ) => {
   };
 
   const handleInputSubmit = e => {
-    if ( e.key == "Enter" && !e.shiftKey && !isLoading ) {
-      e.preventDefault();
+    if ( e.key == "Enter" && !e.shiftKey && !isLoading && !isMobile ) {
+      // e.preventDefault();
       send( e );
+    } else if ( isMobile && e.key == "Enter" ) {
+      return;
     }
   };
 
   const handleInputChange = useCallback( ( e ) => {
 
     inputChange( e );
-    debounce( ( e ) => {
-      let availableHeight = ( e.target.scrollHeight / window?.innerWidth ) * 100;
 
+    let debouncedFunction = debounce( () => {
+      let availableHeight = ( e.target.scrollHeight / window?.innerWidth ) * 100;
+      let availableHeightForMobile = e.target.scrollHeight;
+      console.log( "a height = ", availableHeight );
 
       let text = e.target.value;
-      let numberOfLines = text.split( "\n" ).length;
+      console.log( "text = ", text );
 
-      if ( numberOfLines < 4 ) {
+      let numberOfLines = text.split( "\n" ).length;
+      console.log( "numberOfLines = ", numberOfLines );
+
+      if ( numberOfLines < 4 && !isMobile ) {
         e.target.style.height = Math.max( numberOfLines * 2.55, 3.45 ) + "vw";
       }
-      if ( numberOfLines >= 4 ) {
+
+      // if ( isMobile && numberOfLines < 4 ) {
+      //   e.target.style.height = Math.max( numberOfLines * 20 + ( ( ( availableHeightForMobile ) - 1 ) * 29 ), 29 ) + "px";
+      // }
+
+      if ( numberOfLines >= 4 && !isMobile ) {
         e.target.style.height = Math.min( availableHeight, 9.75 ) + 'vw';
       }
+
+      if ( numberOfLines >= 4 && isMobile ) {
+        e.target.style.height = Math.min( availableHeightForMobile, 60 ) + 'px';
+      }
+
+      if ( isMobile ) {
+        const minRows = 0; // Minimum number of rows
+        const maxRows = 3;
+        const style = e.target.style;
+        style.height = 'auto'; // Reset the height to auto to calculate the natural height
+        const scrollHeight = e.target.scrollHeight;
+        console.log( scrollHeight );
+        const lineHeight = parseFloat( getComputedStyle( e.target ).lineHeight );
+
+        if ( scrollHeight > lineHeight * maxRows ) {
+          style.overflowY = 'scroll';
+          style.height = `${ lineHeight * maxRows }px`;
+        } else {
+          style.overflowY = 'hidden';
+          style.height = 'auto';
+          const newHeight = Math.max( lineHeight * minRows, scrollHeight );
+          style.height = `${ newHeight }px`;
+        }
+      }
+
     }, 300 );
+
+    debouncedFunction();
+
   }, [] );
 
   function handleExampleCopy ( e ) {
@@ -245,7 +287,7 @@ const Chat = ( { messages, setMessages } ) => {
       </div>
       <button onClick={ handleTermination } className={ `${ styles[ "terminate" ] } ${ isLoading ? styles[ "processing" ] : "" }` }>Terminate...</button>
       <div className={ `${ styles[ "input" ] } ${ !darkMode ? styles[ "light" ] : "" }` }>
-        <textarea onKeyDown={ handleInputSubmit } rows={ 1 } type="text" placeholder='Enter Prompt' onInput={ handleInputChange } value={ input } />
+        <textarea onKeyDown={ handleInputSubmit } type="text" placeholder='Enter Prompt' onInput={ handleInputChange } value={ input } />
         <button type='button' onClick={ send } disabled={ isLoading }>
           <FontAwesomeIcon icon={ faPaperPlane } />
         </button>
