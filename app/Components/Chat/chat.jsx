@@ -102,7 +102,7 @@ const Chat = ( { messages, setMessages } ) => {
 
     }
 
-  }, 820 );
+  }, 500 );
 
   useEffect( () => {
     if ( msgs.length ) {
