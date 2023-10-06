@@ -42,7 +42,7 @@ export async function POST ( req ) {
     model: 'OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5',
     inputs: experimental_buildOpenAssistantPrompt( messages ),
     parameters: {
-      max_new_tokens: 400,
+      max_new_tokens: 1000,
       // @ts-ignore (this is a valid parameter specifically in OpenAssistant models)
       typical_p: 0.2,
       repetition_penalty: 1,

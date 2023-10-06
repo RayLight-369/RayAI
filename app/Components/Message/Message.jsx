@@ -1,16 +1,19 @@
 import { memo, useRef } from 'react';
 import MarkdownRenderer from '../MarkdownRenderer/MarkdownRenderer';
 import Image from 'next/image';
+import { isMobileDevice } from '@/app/Contexts/IsMobileContext/IsMobileContext';
 
 
 const Message = ( { msg, session, styles, onClick = () => { }, id } ) => {
 
 
+  const { isMobile } = isMobileDevice();
+
   return (
     <div className={ msg.role == "user" ? styles[ "user" ] : styles[ "ai" ] }
       onLoad={ ( e ) => {
         if ( msg.role == "user" ) {
-          e.currentTarget.style.left = `calc(100% - ${ ( e.currentTarget.offsetWidth / window.innerWidth ) * 100 }vw - .8vw )`;
+          e.currentTarget.style.left = !isMobile ? `calc(100% - ${ ( e.currentTarget.offsetWidth / window.innerWidth ) * 100 }vw - .8vw )` : `calc( 100% - ${ ( e.currentTarget.offsetWidth ) }px - 5px)`;
           e.currentTarget.style.opacity = 1;
         }
       } }
