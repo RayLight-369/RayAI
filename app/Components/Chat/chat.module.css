@@ -46,11 +46,12 @@ div.msgs {
 
 div.input {
   display: flex;
-  position: relative;
+  position: fixed;
   margin-bottom: 8.7vh;
   /* Updated from 4.2vw to 8.7vh */
   height: fit-content;
   width: 80%;
+  bottom: 20px;
   align-items: center;
   justify-content: center;
   transition: 150ms ease-in-out;
