@@ -11,6 +11,7 @@ import { v4 as uuid } from "uuid";
 import Image from 'next/image';
 import styles from "./chat.module.css";
 import Message from "../Message/Message";
+import { isMobileDevice } from '@/app/Contexts/IsMobileContext/IsMobileContext';
 
 
 const Chat = ( { messages, setMessages } ) => {
@@ -20,6 +21,8 @@ const Chat = ( { messages, setMessages } ) => {
   const [ newPrompt, setNewPrompt ] = useState( [] );
   const [ pageRendered, setPageRendered ] = useState( false );
   const [ hash, setHash ] = useState( "" );
+  const { isMobile, setIsMobile } = isMobileDevice();
+
   const { messages: msgs, input, handleInputChange: inputChange, handleSubmit, stop, isLoading } = useChat( {
     id: "_RAY_AI_CHAT_",
     initialMessages: messages,
@@ -34,9 +37,30 @@ const Chat = ( { messages, setMessages } ) => {
       setHash( window.location.hash.slice( 1 ) );
     }
 
+    const handleResize = () => setIsMobile( window.innerWidth <= 767 );
+
+    handleResize();
+
+    window.addEventListener( "resize", handleResize );
+
+    return () => {
+      window.removeEventListener( "resize", handleResize );
+    };
+
   }, [] );
 
   const msgsRef = useRef();
+
+  const debounce = ( func, delay ) => {
+    let timeoutId;
+    return function ( ...args ) {
+      clearTimeout( timeoutId );
+      timeoutId = setTimeout( () => {
+        func.apply( this, args );
+      }, delay );
+    };
+  };
+
 
   const scrollToMessage = () => {
     const messageElement = document.getElementById( hash );
@@ -66,8 +90,24 @@ const Chat = ( { messages, setMessages } ) => {
 
   };
 
+  const debouncedScrollToBottom = debounce( () => {
+    let isNearBottom = msgsRef.current.scrollHeight - msgsRef.current.clientHeight - msgsRef.current.scrollTop <= 250;
+
+    if ( isNearBottom ) {
+
+      msgsRef.current.scrollTo( {
+        top: msgsRef.current.scrollHeight,
+        behavior: "smooth"
+      } );
+
+    }
+
+  }, 800 );
+
   useEffect( () => {
     if ( msgs.length ) {
+
+      debouncedScrollToBottom();
 
       if ( !pageRendered ) {
         msgsRef.current.scroll( 0, msgsRef.current.scrollHeight );
@@ -127,16 +167,6 @@ const Chat = ( { messages, setMessages } ) => {
       e.preventDefault();
       send( e );
     }
-  };
-
-  const debounce = ( func, delay ) => {
-    let timeoutId;
-    return function ( ...args ) {
-      clearTimeout( timeoutId );
-      timeoutId = setTimeout( () => {
-        func.apply( this, args );
-      }, delay );
-    };
   };
 
   const handleInputChange = useCallback( ( e ) => {
