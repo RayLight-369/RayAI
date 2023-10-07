@@ -46,12 +46,14 @@ div.msgs {
 
 div.input {
   display: flex;
-  position: fixed;
-  margin-bottom: 8.7vh;
+  /* position: fixed; */
+  /* bottom: 20px; */
+
+  position: relative;
+  margin-bottom: 15.7vh;
   /* Updated from 4.2vw to 8.7vh */
   height: fit-content;
   width: 80%;
-  bottom: 20px;
   align-items: center;
   justify-content: center;
   transition: 150ms ease-in-out;
@@ -74,10 +76,10 @@ div.input textarea {
   height: 7.12vh;
   /* Updated from 3.45vw to 7.12vh */
   width: 100%;
-  bottom: -3.6vh;
+  bottom: -7.5vh;
   /* Updated from 0.375vw to 0.77vh */
   font-family: AbeeZee;
-  line-height: 1.6;
+  line-height: 1.5;
   max-height: 20.12vh;
   /* Updated from 9.75vw to 20.12vh */
   box-sizing: border-box;
@@ -88,7 +90,6 @@ div.input textarea {
   color: #cbcbcb;
   background: #2a3e43;
   /* #364057 */
-  overflow: hidden;
 }
 
 div.input.light textarea {
@@ -153,7 +154,7 @@ div.input button {
   font-size: 1.6vw;
   /* Updated from 1.6vw to 3.29vh */
   color: #dadada;
-  bottom: -3.6vh;
+  bottom: -7.5vh;
   /* Updated from 0.375vw to 0.77vh */
 }
 

@@ -180,29 +180,38 @@ const Chat = ( { messages, setMessages } ) => {
     let debouncedFunction = debounce( () => {
       let availableHeight = ( e.target.scrollHeight / window?.innerWidth ) * 100;
       let availableHeightForMobile = e.target.scrollHeight;
-      console.log( "a height = ", availableHeight );
+      // console.log( "a height = ", availableHeight );
 
       let text = e.target.value;
-      console.log( "text = ", text );
+      // console.log( "text = ", text );
 
       let numberOfLines = text.split( "\n" ).length;
-      console.log( "numberOfLines = ", numberOfLines );
+      // console.log( "numberOfLines = ", numberOfLines );
 
-      if ( numberOfLines < 4 && !isMobile ) {
-        e.target.style.height = Math.max( numberOfLines * 2.55, 3.45 ) + "vw";
-      }
+      // if ( !isMobile ) {
+      //   let textarea = e.target;
+      //   let scrollHeight = ( e.target.scrollHeight / window.innerHeight ) * 100;
+      //   console.log( scrollHeight );
+
+      //   textarea.style.height = `${ scrollHeight }vh`;
+
+      // }
+
+      // if ( numberOfLines < 4 && !isMobile ) {
+      //   e.target.style.height = Math.max( numberOfLines * 2.55, 3.45 ) + "vw";
+      // }
 
       // if ( isMobile && numberOfLines < 4 ) {
       //   e.target.style.height = Math.max( numberOfLines * 20 + ( ( ( availableHeightForMobile ) - 1 ) * 29 ), 29 ) + "px";
       // }
 
-      if ( numberOfLines >= 4 && !isMobile ) {
-        e.target.style.height = Math.min( availableHeight, 9.75 ) + 'vw';
-      }
+      // if ( numberOfLines >= 4 && !isMobile ) {
+      //   e.target.style.height = Math.min( availableHeight, 9.75 ) + 'vw';
+      // }
 
-      if ( numberOfLines >= 4 && isMobile ) {
-        e.target.style.height = Math.min( availableHeightForMobile, 60 ) + 'px';
-      }
+      // if ( numberOfLines >= 4 && isMobile ) {
+      //   e.target.style.height = Math.min( availableHeightForMobile, 60 ) + 'px';
+      // }
 
       if ( isMobile ) {
         const minRows = 0; // Minimum number of rows
@@ -287,7 +296,7 @@ const Chat = ( { messages, setMessages } ) => {
       </div>
       <button onClick={ handleTermination } className={ `${ styles[ "terminate" ] } ${ isLoading ? styles[ "processing" ] : "" }` }>Terminate...</button>
       <div className={ `${ styles[ "input" ] } ${ !darkMode ? styles[ "light" ] : "" }` }>
-        <textarea onKeyDown={ handleInputSubmit } type="text" placeholder='Enter Prompt' onInput={ handleInputChange } value={ input } />
+        <textarea rows={ 1 } onKeyDown={ handleInputSubmit } type="text" placeholder='Enter Prompt' onInput={ handleInputChange } value={ input } />
         <button type='button' onClick={ send } disabled={ isLoading }>
           <FontAwesomeIcon icon={ faPaperPlane } />
         </button>
