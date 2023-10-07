@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from 'next/dynamic';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBarsStaggered, faPaperPlane, faStop, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { useSession } from 'next-auth/react';
