@@ -79,7 +79,7 @@ div.input textarea {
   bottom: -7.5vh;
   /* Updated from 0.375vw to 0.77vh */
   font-family: AbeeZee;
-  line-height: 1.5;
+  line-height: 1.6;
   max-height: 20.12vh;
   /* Updated from 9.75vw to 20.12vh */
   box-sizing: border-box;
@@ -89,6 +89,7 @@ div.input textarea {
   font-size: 1.1vw;
   color: #cbcbcb;
   background: #2a3e43;
+  transition: 150ms ease-in-out;
   /* #364057 */
 }
 

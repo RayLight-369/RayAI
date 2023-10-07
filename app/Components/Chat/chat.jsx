@@ -178,14 +178,18 @@ const Chat = ( { messages, setMessages } ) => {
     inputChange( e );
 
     let debouncedFunction = debounce( () => {
-      let availableHeight = ( e.target.scrollHeight / window?.innerWidth ) * 100;
-      let availableHeightForMobile = e.target.scrollHeight;
-      // console.log( "a height = ", availableHeight );
 
-      let text = e.target.value;
-      // console.log( "text = ", text );
+      e.target.style.height = 'auto';
+      e.target.style.height = e.target.scrollHeight + 'px';
 
-      let numberOfLines = text.split( "\n" ).length;
+      // let availableHeight = ( e.target.scrollHeight / window?.innerWidth ) * 100;
+      // let availableHeightForMobile = e.target.scrollHeight;
+      // // console.log( "a height = ", availableHeight );
+
+      // let text = e.target.value;
+      // // console.log( "text = ", text );
+
+      // let numberOfLines = text.split( "\n" ).length;
       // console.log( "numberOfLines = ", numberOfLines );
 
       // if ( !isMobile ) {
@@ -213,25 +217,25 @@ const Chat = ( { messages, setMessages } ) => {
       //   e.target.style.height = Math.min( availableHeightForMobile, 60 ) + 'px';
       // }
 
-      if ( isMobile ) {
-        const minRows = 0; // Minimum number of rows
-        const maxRows = 3;
-        const style = e.target.style;
-        style.height = 'auto'; // Reset the height to auto to calculate the natural height
-        const scrollHeight = e.target.scrollHeight;
-        console.log( scrollHeight );
-        const lineHeight = parseFloat( getComputedStyle( e.target ).lineHeight );
+      // if ( isMobile ) {
+      //   const minRows = 0; // Minimum number of rows
+      //   const maxRows = 3;
+      //   const style = e.target.style;
+      //   style.height = 'auto'; // Reset the height to auto to calculate the natural height
+      //   const scrollHeight = e.target.scrollHeight;
+      //   console.log( scrollHeight );
+      //   const lineHeight = parseFloat( getComputedStyle( e.target ).lineHeight );
 
-        if ( scrollHeight > lineHeight * maxRows ) {
-          style.overflowY = 'scroll';
-          style.height = `${ lineHeight * maxRows }px`;
-        } else {
-          style.overflowY = 'hidden';
-          style.height = 'auto';
-          const newHeight = Math.max( lineHeight * minRows, scrollHeight );
-          style.height = `${ newHeight }px`;
-        }
-      }
+      //   if ( scrollHeight > lineHeight * maxRows ) {
+      //     style.overflowY = 'scroll';
+      //     style.height = `${ lineHeight * maxRows }px`;
+      //   } else {
+      //     style.overflowY = 'hidden';
+      //     style.height = 'auto';
+      //     const newHeight = Math.max( lineHeight * minRows, scrollHeight );
+      //     style.height = `${ newHeight }px`;
+      //   }
+      // }
 
     }, 300 );
 
