@@ -5,9 +5,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 export async function getUser () {
   let body = await fetch( "/api/auth/session" );
-  let user = await body.json();
-  if ( Object.keys( user ).length && Object.keys( user.user ).length ) {
-    return { session: user, signedIn: true };
+  let session = await body.json();
+  if ( Object.keys( session ).length && Object.keys( session.user ).length ) {
+    return { session, signedIn: true };
   }
   return { session: null, signedIn: false };
 }
