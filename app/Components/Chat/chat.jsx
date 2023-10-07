@@ -301,7 +301,7 @@ const Chat = ( { messages, setMessages } ) => {
             { ( () => {
 
               if ( i == a.length - 1 ) {
-                if ( m.role == "user" ) {
+                if ( m.role == "user" && isLoading ) {
                   return (
                     <Message id={ "" } msg={ { content: "...", id: "", role: "assistant" } } session={ session } key={ i + 1 } styles={ styles } />
                   );
