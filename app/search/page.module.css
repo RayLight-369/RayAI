@@ -85,7 +85,7 @@ div.ai {
   flex-direction: row;
   width: calc(100% - 1.8vw);
   position: relative;
-  left: .5vw;
+  left: .5vw !important;
   cursor: pointer;
   transition: 200ms ease-in-out;
 }

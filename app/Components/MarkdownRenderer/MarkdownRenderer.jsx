@@ -13,7 +13,6 @@ const MarkdownRenderer = ( { text, className, optionsClassName = "" } ) => {
 
   const { darkMode } = useTheme();
   const [ copied, setCopied ] = useState( false );
-  const codeRef = useRef();
 
   return (
     <div className={ className }>

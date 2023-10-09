@@ -13,6 +13,7 @@ import Loading from "./loading";
 import { isMobileDevice, toggleNavDevice } from "./Contexts/IsMobileContext/IsMobileContext";
 import { useEffect, useState } from "react";
 
+
 const ChildLayout = ( { children } ) => {
 
   const { data: session, status } = useSession();
