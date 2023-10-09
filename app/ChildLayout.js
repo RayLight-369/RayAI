@@ -13,6 +13,7 @@ import Loading from "./loading";
 import { isMobileDevice, toggleNavDevice } from "./Contexts/IsMobileContext/IsMobileContext";
 import { useEffect, useState } from "react";
 
+
 const ChildLayout = ( { children } ) => {
 
   const { data: session, status } = useSession();
@@ -73,14 +74,6 @@ const ChildLayout = ( { children } ) => {
               <Link href={ "/" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faMessage } />&nbsp;&nbsp;&nbsp;Chats</Link>
               <Link href={ "/search" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faMagnifyingGlass } />&nbsp;&nbsp;&nbsp;Search</Link>
               <Link href={ "/settings" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faGears } />&nbsp;&nbsp;&nbsp;Settings</Link>
-            </div>
-            <div className={ styles[ 'build-info' ] }>
-              <div className={ styles[ 'version' ] }>
-                <p className={ styles[ 'title' ] }>Ray-AI</p>
-                <p className='build-version'>O.O.1</p>
-              </div>
-              <p className={ styles[ 'desc' ] }>Be the first to try.</p>
-              <button type='button' className={ `${ styles[ 'card-btn' ] } ${ styles[ 'light' ] }` }>Start Chatting</button>
             </div>
             <div className={ styles[ 'account' ] }>
               { session?.user && !sessionLoading ? (
