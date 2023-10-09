@@ -4,6 +4,7 @@ import MessagesProvider from './Contexts/MessagesContext/MessagesContext';
 import ChildLayout from './ChildLayout';
 import IsMobileProvider, { ToggleNavProvider } from './Contexts/IsMobileContext/IsMobileContext';
 
+
 import "./globals.css";
 
 export const metadata = {
@@ -13,6 +14,7 @@ export const metadata = {
 };
 
 export default function RootLayout ( { children } ) {
+
   return (
     <html lang="en">
       <body>
