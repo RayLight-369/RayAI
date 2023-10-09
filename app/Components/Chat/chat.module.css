@@ -337,7 +337,7 @@ div.user {
   div.msgs {
     /* background: #000; */
     width: 100%;
-    height: calc(100vh - 250px);
+    height: calc(100vh - 220px);
     top: 20px;
     /* Updated from 7.5vw to 15.5vh */
     gap: 20px;
