@@ -337,7 +337,7 @@ div.user {
   div.msgs {
     /* background: #000; */
     width: 100%;
-    height: calc(100% - 200px);
+    height: calc(100vh - 250px);
     top: 20px;
     /* Updated from 7.5vw to 15.5vh */
     gap: 20px;
@@ -350,10 +350,10 @@ div.user {
     display: flex;
     position: absolute;
     margin: 0;
-    bottom: 60px;
+    bottom: 90px;
     /* Updated from 4.2vw to 8.7vh */
     height: fit-content;
-    width: 80%;
+    width: 83%;
     align-items: center;
     justify-content: center;
     transition: 150ms ease-in-out;
@@ -369,7 +369,7 @@ div.user {
 
   div.input textarea {
     position: relative;
-    padding: 5px 50px 5px 10px;
+    padding: 6px 53px 6px 13px;
     /* Updated padding values */
     min-height: 29px;
     /* Updated from 3.45vw to 7.12vh */
@@ -488,7 +488,7 @@ div.user {
 
   p.note {
     position: fixed;
-    bottom: 40px;
+    bottom: 70px;
     /* Updated from 1.8vw to 3.72vh */
     font-size: 6px;
     width: 85%;
