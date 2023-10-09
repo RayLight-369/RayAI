@@ -23,6 +23,11 @@
   src: url("/Fonts/Roboto.ttf");
 }
 
+@font-face {
+  font-family: Montserrat;
+  src: url("/Fonts/Montserrat.ttf");
+}
+
 * {
   padding: 0;
   margin: 0;
