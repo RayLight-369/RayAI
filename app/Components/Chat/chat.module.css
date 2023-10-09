@@ -337,7 +337,7 @@ div.user {
   div.msgs {
     /* background: #000; */
     width: 100%;
-    height: calc(100% - 156px);
+    height: calc(100% - 200px);
     top: 20px;
     /* Updated from 7.5vw to 15.5vh */
     gap: 20px;
@@ -350,7 +350,7 @@ div.user {
     display: flex;
     position: absolute;
     margin: 0;
-    bottom: 48px;
+    bottom: 60px;
     /* Updated from 4.2vw to 8.7vh */
     height: fit-content;
     width: 80%;
@@ -488,7 +488,7 @@ div.user {
 
   p.note {
     position: fixed;
-    bottom: 20px;
+    bottom: 40px;
     /* Updated from 1.8vw to 3.72vh */
     font-size: 6px;
     width: 85%;
