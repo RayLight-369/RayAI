@@ -47,10 +47,10 @@ div.msgs {
 div.input {
   display: flex;
   /* position: fixed; */
-  /* bottom: 20px; */
+  bottom: 48px;
 
-  position: relative;
-  margin-bottom: 15.7vh;
+  position: absolute;
+  /* margin-bottom: 15.7vh; now*/
   /* Updated from 4.2vw to 8.7vh */
   height: fit-content;
   width: 80%;
@@ -76,7 +76,7 @@ div.input textarea {
   height: 7.12vh;
   /* Updated from 3.45vw to 7.12vh */
   width: 100%;
-  bottom: -7.5vh;
+  /* bottom: -7.5vh; now */
   /* Updated from 0.375vw to 0.77vh */
   font-family: AbeeZee;
   line-height: 1.6;
@@ -155,7 +155,7 @@ div.input button {
   font-size: 1.6vw;
   /* Updated from 1.6vw to 3.29vh */
   color: #dadada;
-  bottom: -7.5vh;
+  /* bottom: -7.5vh; */
   /* Updated from 0.375vw to 0.77vh */
 }
 
@@ -348,8 +348,8 @@ div.user {
 
   div.input {
     display: flex;
-    position: fixed;
-    margin-bottom: 0;
+    position: absolute;
+    margin: 0;
     bottom: 48px;
     /* Updated from 4.2vw to 8.7vh */
     height: fit-content;
