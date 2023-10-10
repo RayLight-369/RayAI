@@ -35,6 +35,12 @@ const ApiPage = () => {
     }
   };
 
+  const handleInputClick = e => {
+    if ( e.key == "Enter" ) {
+      handleButtonClick();
+    }
+  };
+
   return (
     <section className={ styles[ "api" ] }>
       <div className={ styles[ "heading" ] }>
@@ -44,7 +50,7 @@ const ApiPage = () => {
       <div className={ styles[ "form" ] }>
         <p className={ styles[ "desc" ] }>Unlock the future – be among the first to access our API with early access</p>
         <div className={ styles[ "input" ] }>
-          <input type="text" value={ email } onChange={ ( e ) => setEmail( e.target.value ) } placeholder='Enter your Email' />
+          <input onKeyDown={ handleInputClick } type="text" value={ email } onChange={ ( e ) => setEmail( e.target.value ) } placeholder='Enter your Email' />
           <button disabled={ disabled } type='button' onClick={ handleButtonClick }>{ disabled ? "Sending" : "Send" }</button>
         </div>
       </div>
