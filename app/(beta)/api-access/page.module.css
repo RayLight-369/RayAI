@@ -132,4 +132,8 @@ div.input button:hover {
     border-radius: 45px;
     letter-spacing: 1px;
   }
+
+  div.input button:hover {
+    width: 85px;
+  }
 }
