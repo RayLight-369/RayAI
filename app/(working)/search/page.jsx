@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 import styles from "./page.module.css";
-import { useMessages } from '../Contexts/MessagesContext/MessagesContext';
-import { useTheme } from '../Contexts/ThemeContext/ThemeContext';
+import { useMessages } from '../../Contexts/MessagesContext/MessagesContext';
+import { useTheme } from '../../Contexts/ThemeContext/ThemeContext';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
@@ -11,7 +11,7 @@ import dynamic from 'next/dynamic';
 
 const Loading = dynamic( () => import( '../loading.js' ) );
 
-const Message = dynamic( () => import( '../Components/Message/Message' ), {
+const Message = dynamic( () => import( '../../Components/Message/Message' ), {
   loading: Loading
 } );
 

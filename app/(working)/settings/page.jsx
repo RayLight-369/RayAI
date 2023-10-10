@@ -6,16 +6,26 @@ import { useTheme } from '@/app/Contexts/ThemeContext/ThemeContext';
 import styles from "./page.module.css";
 import { signIn, signOut } from 'next-auth/react';
 import { getUser } from '@/Provider/Provider';
-import { use } from "react";
+import { memo, use, useCallback } from "react";
 
 
 async function user () {
   return ( await getUser() );
 }
 
-const page = () => {
+const ThemeButton = memo( () => {
+
   const { darkMode, toggleDarkMode } = useTheme();
+  const themeToggle = useCallback( () => toggleDarkMode(), [] );
+
+  return <ToggleButton checked={ darkMode } onChange={ themeToggle } />;
+
+} );
+
+const page = () => {
+  const { darkMode } = useTheme();
   const { signedIn } = use( user() );
+
   let button;
 
   if ( signedIn ) {
@@ -28,7 +38,7 @@ const page = () => {
     <div className={ `${ styles[ 'options' ] } ${ !darkMode ? styles[ 'light' ] : "" }` }>
       <div className={ styles[ 'theme-changer' ] }>
         <p className="label">Toggle Dark Mode</p>
-        <ToggleButton checked={ darkMode } onChange={ toggleDarkMode } />
+        <ThemeButton />
       </div>
       <div className={ styles[ "logout" ] }>
         { button }

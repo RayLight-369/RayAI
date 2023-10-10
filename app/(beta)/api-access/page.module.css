@@ -82,3 +82,22 @@ div.input button {
 div.input button:hover {
   width: 90px;
 }
+
+@media (max-width: 767px) {
+  section.api div.heading p.note {
+    font-size: 14px;
+  }
+
+  section.api div.heading p.title {
+    font-size: 70px;
+  }
+
+  div.form p.desc {
+    font-size: 14.5px;
+    width: 85%;
+  }
+
+  div.input {
+    width: 85%;
+  }
+}
