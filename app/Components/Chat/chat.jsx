@@ -1,7 +1,7 @@
 "use client";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBarsStaggered, faPaperPlane, faStop, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faBarsStaggered, faChevronDown, faPaperPlane, faStop, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { useSession } from 'next-auth/react';
 import { useChat } from "ai/react";
 import { useTheme } from "../../Contexts/ThemeContext/ThemeContext";
@@ -21,6 +21,7 @@ const Chat = ( { messages, setMessages, Msgsloading } ) => {
   const [ newPrompt, setNewPrompt ] = useState( [] );
   const [ pageRendered, setPageRendered ] = useState( false );
   const [ hash, setHash ] = useState( "" );
+  const [ buttonToBottom, setbuttonToBottom ] = useState( false );
   const { isMobile, setIsMobile } = isMobileDevice();
 
   const { messages: msgs, input, handleInputChange: inputChange, handleSubmit, stop, isLoading } = useChat( {
@@ -43,8 +44,21 @@ const Chat = ( { messages, setMessages, Msgsloading } ) => {
 
     window.addEventListener( "resize", handleResize );
 
+    const scrollEvent = e => {
+
+      let element = e.target;
+
+      if ( element.scrollHeight - element.clientHeight - element.scrollTop >= 2000 ) setbuttonToBottom( true );
+      else setbuttonToBottom( false );
+
+    };
+
+    let msgsDiv = document.getElementsByClassName( styles[ "msgs" ] )[ 0 ];
+    msgsDiv.addEventListener( "scroll", scrollEvent );
+
     return () => {
       window.removeEventListener( "resize", handleResize );
+      msgsDiv.removeEventListener( "scroll", scrollEvent );
     };
 
   }, [] );
@@ -181,69 +195,8 @@ const Chat = ( { messages, setMessages, Msgsloading } ) => {
 
     inputChange( e );
 
-    // let debouncedFunction = debounce( () => {
-
     e.target.style.height = 'auto';
     e.target.style.height = e.target.scrollHeight + 'px';
-
-    // let availableHeight = ( e.target.scrollHeight / window?.innerWidth ) * 100;
-    // let availableHeightForMobile = e.target.scrollHeight;
-    // // console.log( "a height = ", availableHeight );
-
-    // let text = e.target.value;
-    // // console.log( "text = ", text );
-
-    // let numberOfLines = text.split( "\n" ).length;
-    // console.log( "numberOfLines = ", numberOfLines );
-
-    // if ( !isMobile ) {
-    //   let textarea = e.target;
-    //   let scrollHeight = ( e.target.scrollHeight / window.innerHeight ) * 100;
-    //   console.log( scrollHeight );
-
-    //   textarea.style.height = `${ scrollHeight }vh`;
-
-    // }
-
-    // if ( numberOfLines < 4 && !isMobile ) {
-    //   e.target.style.height = Math.max( numberOfLines * 2.55, 3.45 ) + "vw";
-    // }
-
-    // if ( isMobile && numberOfLines < 4 ) {
-    //   e.target.style.height = Math.max( numberOfLines * 20 + ( ( ( availableHeightForMobile ) - 1 ) * 29 ), 29 ) + "px";
-    // }
-
-    // if ( numberOfLines >= 4 && !isMobile ) {
-    //   e.target.style.height = Math.min( availableHeight, 9.75 ) + 'vw';
-    // }
-
-    // if ( numberOfLines >= 4 && isMobile ) {
-    //   e.target.style.height = Math.min( availableHeightForMobile, 60 ) + 'px';
-    // }
-
-    // if ( isMobile ) {
-    //   const minRows = 0; // Minimum number of rows
-    //   const maxRows = 3;
-    //   const style = e.target.style;
-    //   style.height = 'auto'; // Reset the height to auto to calculate the natural height
-    //   const scrollHeight = e.target.scrollHeight;
-    //   console.log( scrollHeight );
-    //   const lineHeight = parseFloat( getComputedStyle( e.target ).lineHeight );
-
-    //   if ( scrollHeight > lineHeight * maxRows ) {
-    //     style.overflowY = 'scroll';
-    //     style.height = `${ lineHeight * maxRows }px`;
-    //   } else {
-    //     style.overflowY = 'hidden';
-    //     style.height = 'auto';
-    //     const newHeight = Math.max( lineHeight * minRows, scrollHeight );
-    //     style.height = `${ newHeight }px`;
-    //   }
-    // }
-
-    // }, 300 );
-
-    // debouncedFunction();
 
   }, [] );
 
@@ -256,6 +209,13 @@ const Chat = ( { messages, setMessages, Msgsloading } ) => {
     text = text.join( "" );
 
     navigator.clipboard.writeText( text );
+  }
+
+  function handleBottomButtonClick () {
+    msgsRef.current.scrollTo( {
+      top: msgsRef.current.scrollHeight,
+      behavior: "smooth"
+    } );
   }
 
   return (
@@ -319,6 +279,9 @@ const Chat = ( { messages, setMessages, Msgsloading } ) => {
       {/* { !isMobile && (
         <button onClick={ handleTermination } className={ `${ styles[ "terminate" ] } ${ isLoading ? styles[ "processing" ] : "" }` }>Terminate...</button>
       )} */}
+      { buttonToBottom && (
+        <button onClick={ handleBottomButtonClick } type='button' className={ styles[ "to-bottom" ] }><FontAwesomeIcon icon={ faChevronDown } /></button>
+      ) }
       <div className={ `${ styles[ "input" ] } ${ !darkMode ? styles[ "light" ] : "" }` }>
         <textarea rows={ 1 } onKeyDown={ handleInputSubmit } type="text" placeholder='Enter Prompt' onInput={ handleInputChange } value={ input } />
         <button type='button' title={ isLoading ? "Terminate" : "Send" } onClick={ !isLoading ? send : handleTermination }>
