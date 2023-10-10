@@ -76,4 +76,9 @@ div.input button {
   letter-spacing: 1px;
   text-align: center;
   cursor: pointer;
+  transition: 60ms ease-in;
+}
+
+div.input button:hover {
+  width: 90px;
 }
