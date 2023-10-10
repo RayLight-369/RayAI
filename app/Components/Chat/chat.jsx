@@ -14,7 +14,7 @@ import Message from "../Message/Message";
 import { isMobileDevice } from '@/app/Contexts/IsMobileContext/IsMobileContext';
 
 
-const Chat = ( { messages, setMessages } ) => {
+const Chat = ( { messages, setMessages, Msgsloading } ) => {
 
   const { data: session } = useSession();
   const { darkMode } = useTheme();
@@ -48,6 +48,10 @@ const Chat = ( { messages, setMessages } ) => {
     };
 
   }, [] );
+
+  useEffect( () => {
+    console.log( "isLoading: ", isLoading );
+  }, [ isLoading ] );
 
   const msgsRef = useRef();
 
@@ -256,7 +260,7 @@ const Chat = ( { messages, setMessages } ) => {
 
   return (
     <>
-      { !msgs.length && (
+      { ( !msgs.length && !Msgsloading ) && (
         <>
           <Image
             src={ darkMode ? "/logo.png" : "/logo-dark.png" }

@@ -24,12 +24,12 @@ const page = () => {
     }
   }, [ session ] );
 
-  const { messages, setMessages } = useMessages();
+  const { messages, setMessages, Msgsloading } = useMessages();
 
   return (
     <>
       { signedIn && status != "loading" ? (
-        <Chat messages={ messages } setMessages={ setMessages } />
+        <Chat messages={ messages } setMessages={ setMessages } Msgsloading={ Msgsloading } />
       ) : status == "loading" ? (
         <Loading />
       ) : (

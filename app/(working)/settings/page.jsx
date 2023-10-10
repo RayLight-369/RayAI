@@ -6,12 +6,8 @@ import { useTheme } from '@/app/Contexts/ThemeContext/ThemeContext';
 import styles from "./page.module.css";
 import { signIn, signOut } from 'next-auth/react';
 import { getUser } from '@/Provider/Provider';
-import { memo, use, useCallback } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 
-
-async function user () {
-  return ( await getUser() );
-}
 
 const ThemeButton = memo( () => {
 
@@ -24,7 +20,20 @@ const ThemeButton = memo( () => {
 
 const page = () => {
   const { darkMode } = useTheme();
-  const { signedIn } = use( user() );
+  const [ user, setUser ] = useState( null );
+
+  useEffect( () => {
+    async function fetchUser () {
+      const user = await getUser();
+      setUser( user );
+    }
+
+    fetchUser();
+  } );
+
+  const signedIn = useMemo( () => {
+    return user !== null;
+  }, [ user ] );
 
   let button;
 
