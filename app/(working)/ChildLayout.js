@@ -8,9 +8,9 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
-import { useTheme } from './Contexts/ThemeContext/ThemeContext';
-import Loading from "./loading";
-import { isMobileDevice, toggleNavDevice } from "./Contexts/IsMobileContext/IsMobileContext";
+import { useTheme } from '../Contexts/ThemeContext/ThemeContext';
+// import Loading from "./loading";
+import { isMobileDevice, toggleNavDevice } from "../Contexts/IsMobileContext/IsMobileContext";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
@@ -171,7 +171,8 @@ const ChildLayout = ( { children } ) => {
               ) : status != "loading" ? (
                 <button onClick={ () => signIn( "google" ) } type="button"><FontAwesomeIcon className={ styles[ 'google-icon' ] } icon={ faGoogle } /><span>Continue with Google</span></button>
               ) : (
-                <Loading />
+                // <Loading />
+                <></>
               ) }
             </div>
           </div>
