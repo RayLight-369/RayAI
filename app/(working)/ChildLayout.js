@@ -9,7 +9,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { useTheme } from '../Contexts/ThemeContext/ThemeContext';
-// import Loading from "./loading";
+import Loading from "./loading";
 import { isMobileDevice, toggleNavDevice } from "../Contexts/IsMobileContext/IsMobileContext";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -168,11 +168,10 @@ const ChildLayout = ( { children } ) => {
                   </div>
                   <FontAwesomeIcon onClick={ () => signOut() } className={ styles[ "logout-icon" ] } icon={ faRightFromBracket } />
                 </div>
-              ) : status != "loading" ? (
+              ) : status != "loading" && !isLoading ? (
                 <button onClick={ () => signIn( "google" ) } type="button"><FontAwesomeIcon className={ styles[ 'google-icon' ] } icon={ faGoogle } /><span>Continue with Google</span></button>
               ) : (
-                // <Loading />
-                <></>
+                <Loading />
               ) }
             </div>
           </div>

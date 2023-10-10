@@ -29,6 +29,7 @@ function convertArray ( inputArray ) {
 const MessagesProvider = ( { children } ) => {
 
   const [ messages, setMessages ] = useState( [] );
+  const [ Msgsloading, setMsgsLoading ] = useState( true );
 
   useEffect( () => {
 
@@ -59,6 +60,8 @@ const MessagesProvider = ( { children } ) => {
 
         } catch ( e ) {
           console.log( e );
+        } finally {
+          setMsgsLoading( false );
         }
       }
 
@@ -69,7 +72,7 @@ const MessagesProvider = ( { children } ) => {
   }, [] );
 
   return (
-    <MessagesContext.Provider value={ { messages, setMessages } }>{ children }</MessagesContext.Provider>
+    <MessagesContext.Provider value={ { messages, setMessages, Msgsloading } }>{ children }</MessagesContext.Provider>
   );
 };
 
