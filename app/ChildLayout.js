@@ -51,78 +51,141 @@ const ChildLayout = ( { children } ) => {
 
   let content;
 
-  if ( specialRoutes.includes( pathName ) ) {
-    content =
-      <div className={ styles[ "chat-container" ] }>
-        { !isLoading && (
-          <>
-            <div className={ styles[ "previous-chats" ] } style={ isMobile ? {
-              left: toggleNav ? "0" : -150,
-              zIndex: 10
-            } : null }>
-              { isMobile && (
-                <button className={ styles[ "close-nav" ] } onClick={ () => {
-                  setToggleNav( false );
-                } }>
-                  ✖
-                </button>
-              ) }
-              <div className={ styles[ "logo" ] }>
-                <Image
-                  src={ "/logo.png" }
-                  alt='logo'
-                  width={ "100" }
-                  height={ "70" }
-                />
+  // if ( specialRoutes.includes( pathName ) ) {
+  //   content =
+  //     <div className={ styles[ "chat-container" ] }>
+  //       { !isLoading && (
+  //         <>
+  //           <div className={ styles[ "previous-chats" ] } style={ isMobile ? {
+  //             left: toggleNav ? "0" : -150,
+  //             zIndex: 10
+  //           } : null }>
+  //             { isMobile && (
+  //               <button className={ styles[ "close-nav" ] } onClick={ () => {
+  //                 setToggleNav( false );
+  //               } }>
+  //                 ✖
+  //               </button>
+  //             ) }
+  //             <div className={ styles[ "logo" ] }>
+  //               <Image
+  //                 src={ "/logo.png" }
+  //                 alt='logo'
+  //                 width={ "100" }
+  //                 height={ "70" }
+  //               />
 
-              </div>
-              <div className={ styles[ "links" ] }>
-                <Link href={ "/" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faMessage } />&nbsp;&nbsp;&nbsp;Chats</Link>
-                <Link href={ "/search" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faMagnifyingGlass } />&nbsp;&nbsp;&nbsp;Search</Link>
-                <Link href={ "/settings" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faGears } />&nbsp;&nbsp;&nbsp;Settings</Link>
-                <Link href={ "/api-access" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faServer } />&nbsp;&nbsp;&nbsp;Use as API</Link>
-              </div>
-              <div className={ styles[ 'account' ] }>
-                { session?.user && !sessionLoading ? (
-                  <div className={ styles[ 'profile' ] }>
-                    <div className={ styles[ 'img' ] }>
-                      <Image
-                        src={ session.user.image }
-                        alt='profile'
-                        width={ 30 }
-                        height={ 30 }
-                      />
-                    </div>
-                    <div className={ styles[ 'name-email' ] }>
-                      <p className={ styles[ "name" ] }>{ session.user.name }</p>
-                      <p className={ styles[ "email" ] }>{ session.user.email.length > 22 ? session.user.email.substring( 0, 22 ) + "..." : session.user.email }</p>
-                    </div>
-                    <FontAwesomeIcon onClick={ () => signOut() } className={ styles[ "logout-icon" ] } icon={ faRightFromBracket } />
-                  </div>
-                ) : status != "loading" ? (
-                  <button onClick={ () => signIn( "google" ) } type="button"><FontAwesomeIcon className={ styles[ 'google-icon' ] } icon={ faGoogle } /><span>Continue with Google</span></button>
-                ) : (
-                  <Loading />
-                ) }
-              </div>
-            </div>
-            <div className={ `${ styles[ "layout" ] } ${ !darkMode ? styles[ "light" ] : "" }` }>
-              { isMobile && (
-                <button className={ styles[ "open-nav" ] } onClick={ () => setToggleNav( true ) }>
-                  ☰
-                </button>
-              ) }
-              { children }
-            </div>
-          </>
-        ) }
-      </div >;
-  } else {
-    content = children;
-  }
+  //             </div>
+  //             <div className={ styles[ "links" ] }>
+  //               <Link href={ "/" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faMessage } />&nbsp;&nbsp;&nbsp;Chats</Link>
+  //               <Link href={ "/search" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faMagnifyingGlass } />&nbsp;&nbsp;&nbsp;Search</Link>
+  //               <Link href={ "/settings" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faGears } />&nbsp;&nbsp;&nbsp;Settings</Link>
+  //               <Link href={ "/api-access" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faServer } />&nbsp;&nbsp;&nbsp;Use as API</Link>
+  //             </div>
+  //             <div className={ styles[ 'account' ] }>
+  //               { session?.user && !sessionLoading ? (
+  //                 <div className={ styles[ 'profile' ] }>
+  //                   <div className={ styles[ 'img' ] }>
+  //                     <Image
+  //                       src={ session.user.image }
+  //                       alt='profile'
+  //                       width={ 30 }
+  //                       height={ 30 }
+  //                     />
+  //                   </div>
+  //                   <div className={ styles[ 'name-email' ] }>
+  //                     <p className={ styles[ "name" ] }>{ session.user.name }</p>
+  //                     <p className={ styles[ "email" ] }>{ session.user.email.length > 22 ? session.user.email.substring( 0, 22 ) + "..." : session.user.email }</p>
+  //                   </div>
+  //                   <FontAwesomeIcon onClick={ () => signOut() } className={ styles[ "logout-icon" ] } icon={ faRightFromBracket } />
+  //                 </div>
+  //               ) : status != "loading" ? (
+  //                 <button onClick={ () => signIn( "google" ) } type="button"><FontAwesomeIcon className={ styles[ 'google-icon' ] } icon={ faGoogle } /><span>Continue with Google</span></button>
+  //               ) : (
+  //                 <Loading />
+  //               ) }
+  //             </div>
+  //           </div>
+  //           <div className={ `${ styles[ "layout" ] } ${ !darkMode ? styles[ "light" ] : "" }` }>
+  //             { isMobile && (
+  //               <button className={ styles[ "open-nav" ] } onClick={ () => setToggleNav( true ) }>
+  //                 ☰
+  //               </button>
+  //             ) }
+  //             { children }
+  //           </div>
+  //         </>
+  //       ) }
+  //     </div >;
+  // } else {
+  //   content = children;
+  // }
 
   return (
-    content
+    <div className={ styles[ "chat-container" ] }>
+      { !isLoading && (
+        <>
+          <div className={ styles[ "previous-chats" ] } style={ isMobile ? {
+            left: toggleNav ? "0" : -150,
+            zIndex: 10
+          } : null }>
+            { isMobile && (
+              <button className={ styles[ "close-nav" ] } onClick={ () => {
+                setToggleNav( false );
+              } }>
+                ✖
+              </button>
+            ) }
+            <div className={ styles[ "logo" ] }>
+              <Image
+                src={ "/logo.png" }
+                alt='logo'
+                width={ "100" }
+                height={ "70" }
+              />
+
+            </div>
+            <div className={ styles[ "links" ] }>
+              <Link href={ "/" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faMessage } />&nbsp;&nbsp;&nbsp;Chats</Link>
+              <Link href={ "/search" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faMagnifyingGlass } />&nbsp;&nbsp;&nbsp;Search</Link>
+              <Link href={ "/settings" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faGears } />&nbsp;&nbsp;&nbsp;Settings</Link>
+              <Link href={ "/api-access" }><FontAwesomeIcon className={ styles[ 'link-icons' ] } icon={ faServer } />&nbsp;&nbsp;&nbsp;Use as API</Link>
+            </div>
+            <div className={ styles[ 'account' ] }>
+              { session?.user && !sessionLoading ? (
+                <div className={ styles[ 'profile' ] }>
+                  <div className={ styles[ 'img' ] }>
+                    <Image
+                      src={ session.user.image }
+                      alt='profile'
+                      width={ 30 }
+                      height={ 30 }
+                    />
+                  </div>
+                  <div className={ styles[ 'name-email' ] }>
+                    <p className={ styles[ "name" ] }>{ session.user.name }</p>
+                    <p className={ styles[ "email" ] }>{ session.user.email.length > 22 ? session.user.email.substring( 0, 22 ) + "..." : session.user.email }</p>
+                  </div>
+                  <FontAwesomeIcon onClick={ () => signOut() } className={ styles[ "logout-icon" ] } icon={ faRightFromBracket } />
+                </div>
+              ) : status != "loading" ? (
+                <button onClick={ () => signIn( "google" ) } type="button"><FontAwesomeIcon className={ styles[ 'google-icon' ] } icon={ faGoogle } /><span>Continue with Google</span></button>
+              ) : (
+                <Loading />
+              ) }
+            </div>
+          </div>
+          <div className={ `${ styles[ "layout" ] } ${ !darkMode ? styles[ "light" ] : "" }` }>
+            { isMobile && (
+              <button className={ styles[ "open-nav" ] } onClick={ () => setToggleNav( true ) }>
+                ☰
+              </button>
+            ) }
+            { children }
+          </div>
+        </>
+      ) }
+    </div >
   );
 };
 
