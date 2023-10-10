@@ -1,30 +1,31 @@
 section.api {
   background: url("/bg.svg") center no-repeat;
+  background-size: cover;
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 90px;
+  gap: 15vh;
   font-family: Montserrat;
 }
 
 div.heading {
   display: flex;
   flex-direction: column;
-  gap: 17px;
+  gap: 3vh;
 }
 
 section.api div.heading p.note {
   color: rgba(255, 255, 255, 0.50);
-  font-size: 20px;
+  font-size: 1.45vw;
   text-align: center;
 }
 
 section.api div.heading p.title {
   color: #FFF;
   text-align: center;
-  font-size: 90px;
+  font-size: 6.65vw;
   font-weight: 700;
 }
 
@@ -33,16 +34,17 @@ div.form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 70px;
+  gap: 10vh;
 }
 
 div.form p.desc {
   text-align: center;
   color: rgba(255, 255, 255, 0.70);
+  font-size: 1.159vw;
 }
 
 div.input {
-  width: 50%;
+  width: 50vw;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -53,43 +55,57 @@ div.input {
 div.input input {
   outline: none;
   border: none;
-  border-radius: 80px;
+  border-radius: 6vw;
   background: rgba(255, 255, 255, 0.1);
   width: 100%;
-  padding: 15px 42px 15px 22px;
+  padding: 2.25vh 3.15vw 2.25vh 1.65vw;
   color: rgb(234, 234, 234);
   position: relative;
-  font-size: 15px;
-  letter-spacing: 1px;
+  font-size: 1.125vw;
+  letter-spacing: .075vw;
 }
 
 div.input button {
   position: absolute;
-  right: 3px;
-  height: calc(100% - 6px);
-  width: 80px;
+  right: .3vw;
+  height: calc(100% - .45vw);
+  width: 6vw;
   border: none;
   outline: none;
   color: rgb(244, 244, 244);
-  border-radius: 45px;
+  border-radius: 3.38vw;
   background: #1F7268;
-  letter-spacing: 1px;
+  letter-spacing: .075vw;
   text-align: center;
   cursor: pointer;
   transition: 60ms ease-in;
+  font-size: .98vw;
 }
 
 div.input button:hover {
-  width: 90px;
+  width: 6.75vw;
 }
 
 @media (max-width: 767px) {
+
+  section.api {
+    gap: 90px;
+  }
+
+  div.heading {
+    gap: 17px;
+  }
+
   section.api div.heading p.note {
     font-size: 14px;
   }
 
   section.api div.heading p.title {
     font-size: 70px;
+  }
+
+  div.form {
+    gap: 70px;
   }
 
   div.form p.desc {
@@ -99,5 +115,21 @@ div.input button:hover {
 
   div.input {
     width: 85%;
+  }
+
+  div.input input {
+    border-radius: 80px;
+    padding: 15px 42px 15px 22px;
+    font-size: 15px;
+    letter-spacing: 1px;
+  }
+
+  div.input button {
+    font-size: 13.333px;
+    right: 3px;
+    height: calc(100% - 6px);
+    width: 80px;
+    border-radius: 45px;
+    letter-spacing: 1px;
   }
 }
