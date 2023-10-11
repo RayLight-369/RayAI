@@ -97,7 +97,7 @@ export async function POST ( req ) {
                       <p>Thank you for signing up for early access</p>
                   </div>
                   <div class="contact">
-                      <p>Contact: <a href="mailto:hr@aions.co">hr@aions.co</a></p>
+                      <p>Contact: <a href="mailto:info@aions.co">info@aions.co</a></p>
                   </div>
               </div>
           </div>
