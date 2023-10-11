@@ -1,24 +1,24 @@
 import { createTransport } from 'nodemailer';
 
 export async function POST ( req ) {
-  const { email } = await req.json();
+    const { email } = await req.json();
 
-  try {
-    const transporter = createTransport( {
-      service: "SMTP",
-      host: "aions.co",
-      port: 465,
-      auth: {
-        user: "chat@aions.co",
-        pass: process.env.SMTP_PASS
-      }
-    } );
+    try {
+        const transporter = createTransport( {
+            service: "SMTP",
+            host: "aions.co",
+            port: 465,
+            auth: {
+                user: "chat@aions.co",
+                pass: process.env.SMTP_PASS
+            }
+        } );
 
-    const res = await transporter.sendMail( {
-      from: 'aions.co <chat@aions.co>',
-      to: email,
-      subject: 'Early Access Signup Confirmation',
-      html: `<!DOCTYPE html>
+        const res = await transporter.sendMail( {
+            from: 'aions.co <chat@aions.co>',
+            to: email,
+            subject: 'Early Access Signup Confirmation',
+            html: `<!DOCTYPE html>
       <html>
       <head>
           <style>
@@ -104,12 +104,12 @@ export async function POST ( req ) {
       </body>
       </html>
       `
-    } );
+        } );
 
-    return new Response( JSON.stringify( { response: res } ), { status: 200 } );
+        return new Response( JSON.stringify( { response: res } ), { status: 200 } );
 
-  } catch ( e ) {
-    console.log( e );
-    return new Response( JSON.stringify( { error: e } ), { status: 500 } );
-  }
+    } catch ( e ) {
+        console.log( e );
+        return new Response( JSON.stringify( { error: e } ), { status: 500 } );
+    }
 }

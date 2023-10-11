@@ -1,5 +1,6 @@
 "use client";
 
+import { exists, insertData } from "@/app/Supabase/Supabase";
 import styles from "./page.module.css";
 import { useState } from "react";
 
@@ -16,16 +17,37 @@ const ApiPage = () => {
       try {
         setDisabled( true );
 
-        const response = await fetch( "/api/api-access", {
-          method: "POST",
-          body: JSON.stringify( {
-            email
-          } )
+        const userExists = await exists( {
+          table: "Early_Access",
+          where: {
+            email: email
+          }
         } );
 
-        if ( response.ok ) {
-          console.log( await response.json() );
+        if ( !userExists ) {
+
+          await insertData( {
+            table: "Early_Access",
+            object: {
+              email
+            }
+          } );
+
+          const response = await fetch( "/api/api-access", {
+            method: "POST",
+            body: JSON.stringify( {
+              email
+            } )
+          } );
+
+          if ( response.ok ) {
+            console.log( await response.json() );
+          }
+
+        } else {
+          alert( "User has already signed up for Early Access!" );
         }
+
       } catch ( e ) {
         console.log( e );
       } finally {
@@ -36,7 +58,7 @@ const ApiPage = () => {
   };
 
   const handleInputClick = e => {
-    if ( e.key == "Enter" ) {
+    if ( e.key == "Enter" && !e.shiftKey ) {
       handleButtonClick();
     }
   };
