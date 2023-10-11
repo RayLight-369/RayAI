@@ -58,7 +58,7 @@ const ApiPage = () => {
   };
 
   const handleInputClick = e => {
-    if ( e.key == "Enter" && !e.shiftKey ) {
+    if ( e.key == "Enter" && !e.shiftKey && !disabled ) {
       handleButtonClick();
     }
   };
