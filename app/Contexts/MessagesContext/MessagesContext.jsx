@@ -10,21 +10,24 @@ export const useMessages = () => {
 };
 
 
-function convertArray ( inputArray ) {
-  const outputArray = new Array( inputArray.length * 2 );
-  for ( let i = 0, j = 0; i < inputArray.length; i++ ) {
-    outputArray[ j++ ] = { content: inputArray[ i ][ 0 ].value, role: "user", key: inputArray[ i ][ 0 ].key };
-    outputArray[ j++ ] = { content: inputArray[ i ][ 1 ].value, role: "assistant", key: inputArray[ i ][ 1 ].key };
+function* convertArray ( inputArray ) {
+  // const outputArray = [];
+
+  for ( const [ user, assistant ] of inputArray ) {
+    const userValue = user.value;
+    const assistantValue = assistant.value;
+
+    if ( userValue.trim().length && assistantValue.trim().length ) {
+      // outputArray.push(
+      yield { content: userValue, role: "user", key: user.key };
+      yield { content: assistantValue, role: "assistant", key: assistant.key };
+      // );
+    }
   }
-  return outputArray;
+
+  // return outputArray;
 }
 
-// function convertArray ( inputArray ) {
-//   return inputArray.flatMap( ( [ userContent, aiContent ] ) => [
-//     { content: userContent, agent: "user" },
-//     { content: aiContent, agent: "ai" },
-//   ] );
-// }
 
 const MessagesProvider = ( { children } ) => {
 
