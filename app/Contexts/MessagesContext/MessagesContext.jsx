@@ -10,22 +10,22 @@ export const useMessages = () => {
 };
 
 
-function convertArray ( inputArray ) {
-  const outputArray = [];
+function* convertArray ( inputArray ) {
+  // const outputArray = [];
 
   for ( const [ user, assistant ] of inputArray ) {
     const userValue = user.value;
     const assistantValue = assistant.value;
 
     if ( userValue.trim().length && assistantValue.trim().length ) {
-      outputArray.push(
-        { content: userValue, role: "user", key: user.key },
-        { content: assistantValue, role: "assistant", key: assistant.key }
-      );
+      // outputArray.push(
+      yield { content: userValue, role: "user", key: user.key };
+      yield { content: assistantValue, role: "assistant", key: assistant.key };
+      // );
     }
   }
 
-  return outputArray;
+  // return outputArray;
 }
 
 
