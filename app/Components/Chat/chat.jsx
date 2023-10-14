@@ -13,6 +13,15 @@ import styles from "./chat.module.css";
 import Message from "../Message/Message";
 import { isMobileDevice } from '@/app/Contexts/IsMobileContext/IsMobileContext';
 
+const debounce = ( func, delay ) => {
+  let timeoutId;
+  return function ( ...args ) {
+    clearTimeout( timeoutId );
+    timeoutId = setTimeout( () => {
+      func.apply( this, args );
+    }, delay );
+  };
+};
 
 const Chat = ( { messages, setMessages, Msgsloading } ) => {
 
@@ -23,14 +32,64 @@ const Chat = ( { messages, setMessages, Msgsloading } ) => {
   const [ hash, setHash ] = useState( "" );
   const [ buttonToBottom, setbuttonToBottom ] = useState( false );
   const { isMobile, setIsMobile } = isMobileDevice();
+  const [ input, setInput ] = useState( "" );
+  const [ isLoading, setLoading ] = useState( false );
 
-  const { messages: msgs, input, handleInputChange: inputChange, handleSubmit, stop, isLoading } = useChat( {
-    id: "_RAY_AI_CHAT_",
-    initialMessages: messages,
-    onFinish: ( msg ) => {
-      setNewPrompt( prev => [ ...prev, { value: msg.content, key: msg.id } ] );
+  const inputChange = ( e ) => {
+    setInput( e.target.value );
+  };
+
+  const handleSubmit = async ( e ) => {
+    e.preventDefault();
+    setInput( "" );
+
+    try {
+      setLoading( true );
+
+      const response = await fetch( "/api/chat", {
+        method: "POST",
+        body: JSON.stringify( {
+          input,
+          // chatbot_model: 0,
+          // web_search: true,
+          new_convo: !messages.length
+        } )
+      } );
+
+      if ( response.ok ) {
+        let body = await response.json();
+        console.log( body );
+
+        let key = uuid();
+
+        setMessages( prev => [
+          ...prev,
+          { content: body.body.response, role: "assistant", key }
+        ] );
+
+        setNewPrompt( prev => [ ...prev, { value: body.body.response, key } ] );
+
+      }
+
+    } catch ( e ) {
+      console.log( e );
+      setNewPrompt( [] );
+    } finally {
+      setLoading( false );
     }
-  } );
+  };
+
+  const stop = () => { };
+
+
+
+  // const { messages: msgs, input, handleInputChange: inputChange, handleSubmit, stop, isLoading } = useChat( {
+  //   id: "_RAY_AI_CHAT_",
+  //   initialMessages: messages,
+  //   onFinish: ( msg ) => {
+  //     setNewPrompt( prev => [ ...prev, { value: msg.content, key: msg.id } ] );
+  //   }
+  // } );
 
   useEffect( () => {
 
@@ -69,16 +128,6 @@ const Chat = ( { messages, setMessages, Msgsloading } ) => {
 
   const msgsRef = useRef();
 
-  const debounce = ( func, delay ) => {
-    let timeoutId;
-    return function ( ...args ) {
-      clearTimeout( timeoutId );
-      timeoutId = setTimeout( () => {
-        func.apply( this, args );
-      }, delay );
-    };
-  };
-
 
   const scrollToMessage = () => {
     const messageElement = document.getElementById( hash );
@@ -99,6 +148,11 @@ const Chat = ( { messages, setMessages, Msgsloading } ) => {
     if ( input.trim().length && !isLoading ) {
 
       let key = uuid();
+
+      setMessages( prev => [
+        ...prev,
+        { content: input, role: "user", key }
+      ] );
 
       handleSubmit( e );
 
@@ -125,7 +179,7 @@ const Chat = ( { messages, setMessages, Msgsloading } ) => {
   }, 1000 );
 
   useEffect( () => {
-    if ( msgs.length ) {
+    if ( messages.length ) {
 
       debouncedScrollToBottom();
 
@@ -135,7 +189,7 @@ const Chat = ( { messages, setMessages, Msgsloading } ) => {
 
       setPageRendered( true );
     }
-  }, [ msgs ] );
+  }, [ messages ] );
 
   useEffect( () => {
 
@@ -143,10 +197,10 @@ const Chat = ( { messages, setMessages, Msgsloading } ) => {
 
     if ( newPrompt.length == 2 ) {
 
-      setMessages( prev => [ ...prev,
-      { content: newPrompt[ 0 ].value, role: "user", key: newPrompt[ 0 ].key },
-      { content: newPrompt[ 1 ].value, role: "assistant", key: newPrompt[ 1 ].key }
-      ] );
+      // setMessages( prev => [ ...prev,
+      // { content: newPrompt[ 0 ].value, role: "user", key: newPrompt[ 0 ].key },
+      // { content: newPrompt[ 1 ].value, role: "assistant", key: newPrompt[ 1 ].key }
+      // ] );
 
       const sendMsg = async () => {
         try {
@@ -220,7 +274,7 @@ const Chat = ( { messages, setMessages, Msgsloading } ) => {
 
   return (
     <>
-      { ( !msgs.length && !Msgsloading ) && (
+      { ( !messages.length && !Msgsloading ) && (
         <>
           <Image
             src={ darkMode ? "/logo.png" : "/logo-dark.png" }
@@ -258,7 +312,7 @@ const Chat = ( { messages, setMessages, Msgsloading } ) => {
       ) }
 
       <div className={ `${ styles[ "msgs" ] } ${ !darkMode ? styles[ "light" ] : "" }` } ref={ msgsRef }>
-        { msgs.map( ( m, i, a ) => (
+        { messages.map( ( m, i, a ) => (
           <>
             <Message id={ m.key } msg={ m } session={ session } key={ i } styles={ styles } />
 
