@@ -176,7 +176,7 @@ const Chat = ( { messages, setMessages, Msgsloading } ) => {
 
     }
 
-  }, 1000 );
+  }, 500 );
 
   useEffect( () => {
     if ( messages.length ) {
