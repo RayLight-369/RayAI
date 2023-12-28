@@ -32,64 +32,64 @@ const Chat = ( { messages, setMessages, Msgsloading } ) => {
   const [ hash, setHash ] = useState( "" );
   const [ buttonToBottom, setbuttonToBottom ] = useState( false );
   const { isMobile, setIsMobile } = isMobileDevice();
-  const [ input, setInput ] = useState( "" );
-  const [ isLoading, setLoading ] = useState( false );
+  // const [ input, setInput ] = useState( "" );
+  // const [ isLoading, setLoading ] = useState( false );
 
-  const inputChange = ( e ) => {
-    setInput( e.target.value );
-  };
+  // const inputChange = ( e ) => {
+  //   setInput( e.target.value );
+  // };
 
-  const handleSubmit = async ( e ) => {
-    e.preventDefault();
-    setInput( "" );
+  // const handleSubmit = async ( e ) => {
+  //   e.preventDefault();
+  //   setInput( "" );
 
-    try {
-      setLoading( true );
+  //   try {
+  //     setLoading( true );
 
-      const response = await fetch( "/api/chat", {
-        method: "POST",
-        body: JSON.stringify( {
-          input,
-          // chatbot_model: 0,
-          // web_search: true,
-          new_convo: !messages.length
-        } )
-      } );
+  //     const response = await fetch( "/api/chat", {
+  //       method: "POST",
+  //       body: JSON.stringify( {
+  //         input,
+  //         // chatbot_model: 0,
+  //         // web_search: true,
+  //         new_convo: !messages.length
+  //       } )
+  //     } );
 
-      if ( response.ok ) {
-        let body = await response.json();
-        console.log( body );
+  //     if ( response.ok ) {
+  //       let body = await response.json();
+  //       console.log( body );
 
-        let key = uuid();
+  //       let key = uuid();
 
-        setMessages( prev => [
-          ...prev,
-          { content: body.body.response, role: "assistant", key }
-        ] );
+  //       setMessages( prev => [
+  //         ...prev,
+  //         { content: body.body.response, role: "assistant", key }
+  //       ] );
 
-        setNewPrompt( prev => [ ...prev, { value: body.body.response, key } ] );
+  //       setNewPrompt( prev => [ ...prev, { value: body.body.response, key } ] );
 
-      }
+  //     }
 
-    } catch ( e ) {
-      console.log( e );
-      setNewPrompt( [] );
-    } finally {
-      setLoading( false );
-    }
-  };
-
-  const stop = () => { };
-
-
-
-  // const { messages: msgs, input, handleInputChange: inputChange, handleSubmit, stop, isLoading } = useChat( {
-  //   id: "_RAY_AI_CHAT_",
-  //   initialMessages: messages,
-  //   onFinish: ( msg ) => {
-  //     setNewPrompt( prev => [ ...prev, { value: msg.content, key: msg.id } ] );
+  //   } catch ( e ) {
+  //     console.log( e );
+  //     setNewPrompt( [] );
+  //   } finally {
+  //     setLoading( false );
   //   }
-  // } );
+  // };
+
+  // const stop = () => { };
+
+
+
+  const { messages: msgs, input, handleInputChange: inputChange, handleSubmit, stop, isLoading } = useChat( {
+    id: "_RAY_AI_CHAT_",
+    initialMessages: messages,
+    onFinish: ( msg ) => {
+      setNewPrompt( prev => [ ...prev, { value: msg.content, key: msg.id } ] );
+    }
+  } );
 
   useEffect( () => {
 
@@ -149,10 +149,10 @@ const Chat = ( { messages, setMessages, Msgsloading } ) => {
 
       let key = uuid();
 
-      setMessages( prev => [
-        ...prev,
-        { content: input, role: "user", key }
-      ] );
+      // setMessages( prev => [
+      //   ...prev,
+      //   { content: input, role: "user", key }
+      // ] );
 
       handleSubmit( e );
 
@@ -189,7 +189,7 @@ const Chat = ( { messages, setMessages, Msgsloading } ) => {
 
       setPageRendered( true );
     }
-  }, [ messages ] );
+  }, [ msgs ] );
 
   useEffect( () => {
 
@@ -197,10 +197,10 @@ const Chat = ( { messages, setMessages, Msgsloading } ) => {
 
     if ( newPrompt.length == 2 ) {
 
-      // setMessages( prev => [ ...prev,
-      // { content: newPrompt[ 0 ].value, role: "user", key: newPrompt[ 0 ].key },
-      // { content: newPrompt[ 1 ].value, role: "assistant", key: newPrompt[ 1 ].key }
-      // ] );
+      setMessages( prev => [ ...prev,
+      { content: newPrompt[ 0 ].value, role: "user", key: newPrompt[ 0 ].key },
+      { content: newPrompt[ 1 ].value, role: "assistant", key: newPrompt[ 1 ].key }
+      ] );
 
       const sendMsg = async () => {
         try {
@@ -274,7 +274,7 @@ const Chat = ( { messages, setMessages, Msgsloading } ) => {
 
   return (
     <>
-      { ( !messages.length && !Msgsloading ) && (
+      { ( !msgs.length && !Msgsloading ) && (
         <>
           <Image
             src={ darkMode ? "/logo.png" : "/logo-dark.png" }
@@ -312,7 +312,7 @@ const Chat = ( { messages, setMessages, Msgsloading } ) => {
       ) }
 
       <div className={ `${ styles[ "msgs" ] } ${ !darkMode ? styles[ "light" ] : "" }` } ref={ msgsRef }>
-        { messages.map( ( m, i, a ) => (
+        { msgs.map( ( m, i, a ) => (
           <>
             <Message id={ m.key } msg={ m } session={ session } key={ i } styles={ styles } />
 
