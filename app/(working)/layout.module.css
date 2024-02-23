@@ -23,7 +23,6 @@ div.layout {
   border-radius: 3.75vw;
   border: .075vw solid #365057;
   flex-direction: column;
-  backdrop-filter: blur(71px);
   align-items: center;
 }
 
